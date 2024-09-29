@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { PROJECT } from '../../data/AppData'
 
 // vw
-export const vw = (width: any) => `${100*(width/750)}vw`;
+export const vw = (width: number) => `${100*(width/750)}vw`;
 
 export const Responsive = {
   sp: css`

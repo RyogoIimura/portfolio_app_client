@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import { PROJECT } from '../../data/AppData'
 import { dela_gothic } from "../utils/Fonts";
-import { vw, Responsive } from '../utils/Responsive';
+import { vw } from '../utils/Responsive';
 
 const PageLinks = () => {
   const linksName = ['CONCEPT', 'FEATURE', 'SAUNA', 'PRICE'];
