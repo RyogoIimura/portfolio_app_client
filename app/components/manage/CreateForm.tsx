@@ -10,7 +10,7 @@ import { API_URL } from "@/constants/url";
 
 
 const CreateForm = () => {
-  const { items, isLoading, error, mutate } = useItems();
+  const { items, mutate } = useItems();
 
   const [itemName, setItemName] = useState<string>('');
   const [itemCategory, setItemCategory] = useState<bigint>(BigInt(0));

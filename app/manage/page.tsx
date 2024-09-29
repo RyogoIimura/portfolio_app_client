@@ -10,7 +10,8 @@ import { useItems } from "../../hooks/useItems";
 
 
 export default function Manage() {
-  const { items, isLoading, error, mutate } = useItems();
+  // const { items, isLoading, error, mutate } = useItems();
+  const { items } = useItems();
 
   return (
     <>

@@ -15,7 +15,8 @@ type propsType = {
 }
 
 const EditForm = (props: propsType) => {
-  const { items, isLoading, error, mutate } = useItems();
+  // const { items, isLoading, error, mutate } = useItems();
+  const { items, mutate } = useItems();
   const { item } = props;
 
   const [itemName, setItemName] = useState<string>('');
