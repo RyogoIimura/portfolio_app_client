@@ -12,7 +12,11 @@ import { useItems } from "../../hooks/useItems";
 export default function Manage() {
   // const { items, isLoading, error, mutate } = useItems();
   const { items } = useItems();
-
+  console.log(
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+  );
+  
   return (
     <>
       <div css={styles.manageWrapper}>
