@@ -19,6 +19,8 @@ const Header = () => {
   const { data: session } = useSession();
   // console.log(session);
 
+  console.log('a', process.env.NEXT_PUBLIC_NEXTAUTH_SECRET);
+
   return (
     <>
       {/* header */}
