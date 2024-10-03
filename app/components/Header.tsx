@@ -21,7 +21,6 @@ const Header = () => {
 
   return (
     <>
-      {/* header */}
       <div
         css={styles.headerContainer}
       >
@@ -45,7 +44,7 @@ const Header = () => {
               css={[styles.headerTitle, Responsive.sp]}
               href='./lp'
             >AZUMA GORGE SAUNA</Link>
-            
+
             {session ? (
               <div css={[styles.userNavContainer, Responsive.pc]}>
                 <button
@@ -105,7 +104,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* bg, nav menu */}
       <Navigation
         navFlag={navFlag}
         navOpen={navOpen}

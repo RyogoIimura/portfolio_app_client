@@ -16,12 +16,11 @@ export default function Manage() {
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
   );
-  
+
   return (
     <>
       <div css={styles.manageWrapper}>
 
-        {/* アイテム一覧 */}
         {items?.map((item: ItemType) => (
           <EditForm
             key={item.id}
@@ -29,7 +28,6 @@ export default function Manage() {
           />
         ))}
 
-        {/* アイテム追加 */}
         <CreateForm />
       </div>
     </>

@@ -46,7 +46,6 @@ const CreateForm = () => {
 
   return (
     <>
-      {/* アイテム追加ボタン */}
       <div css={styles.addButtonContainer}>
         <button
           css={[styles.button, styles.addButton]}
@@ -57,13 +56,11 @@ const CreateForm = () => {
         >追加</button>
       </div>
 
-      {/* モーダル背景 */}
       <div
         css={addFlag ? styles.bg : [styles.bg, styles.bgAnime]}
         onClick={() => setAddFlag(!addFlag)}
       ></div>
 
-      {/* アイテム追加のモーダル */}
       <div
         css={addFlag ? styles.addMdContainer : [styles.addMdContainer, styles.addMdAnime]}
       >
