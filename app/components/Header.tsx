@@ -17,7 +17,6 @@ const Header = () => {
   const [userNavFlag, setUserNavFlag] = useState<boolean>(false);
   const userNavOpen = () => setUserNavFlag(!userNavFlag);
   const { data: session } = useSession();
-  // console.log(session);
 
   return (
     <>

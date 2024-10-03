@@ -19,7 +19,6 @@ type NavigationProps = {
 const Navigation = (props: NavigationProps) => {
   const { navFlag, navOpen } = props;
   const { data: session } = useSession();
-  console.log(session);
 
   return (
     <>

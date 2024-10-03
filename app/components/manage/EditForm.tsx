@@ -51,10 +51,10 @@ const EditForm = (props: propsType) => {
           maximum_temperature: itemTemperature,
         }),
       });
-      console.log(response);
 
       if (response.ok) {
         const editedItem = await response.json();
+        console.log(editedItem);
         const updatedItems = items.map((item: ItemType) =>
           item.id === editedItem.id ? editedItem : item
         );
@@ -70,7 +70,6 @@ const EditForm = (props: propsType) => {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
-    console.log(response);
 
     if (response.ok) {
       const updatedItems = items.filter((item: ItemType) => item.id !== id);

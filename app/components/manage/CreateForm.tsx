@@ -34,11 +34,10 @@ const CreateForm = () => {
         maximum_temperature: itemTemperature,
       }),
     });
-    console.log(response);
 
     if (response.ok) {
       const newItem = await response.json();
-      mutate([...items, newItem]);
+      mutate([...items, JSON.parse(newItem)]);
     }
 
     setAddFlag(!addFlag)
