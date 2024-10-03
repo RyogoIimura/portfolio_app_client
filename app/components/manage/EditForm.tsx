@@ -54,7 +54,6 @@ const EditForm = (props: propsType) => {
 
       if (response.ok) {
         const editedItem = await response.json();
-        console.log(editedItem);
         const updatedItems = items.map((item: ItemType) =>
           item.id === editedItem.id ? editedItem : item
         );
