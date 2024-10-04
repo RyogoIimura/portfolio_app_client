@@ -85,7 +85,7 @@ const EditForm = (props: propsType) => {
           <p css={styles.baseText}>品目</p>
           {
             editFlag && editItemId === item.id ?
-            <input css={styles.baseText} type="text" value={itemName} onChange={(e) => setItemName(e.target.value)} /> :
+            <input css={[styles.baseText, styles.inputText]} type="text" value={itemName} onChange={(e) => setItemName(e.target.value)} /> :
             <p css={styles.baseText}>{item.name}</p>
           }
         </div>
@@ -104,7 +104,7 @@ const EditForm = (props: propsType) => {
           <p css={styles.baseText}>値段</p>
           {
             editFlag && editItemId === item.id ?
-            <input css={styles.baseText} type="text" value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} /> :
+            <input css={[styles.baseText, styles.inputText]} type="text" value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} /> :
             <p css={styles.baseText}>{item.price}</p>
           }
         </div>
@@ -112,7 +112,7 @@ const EditForm = (props: propsType) => {
           <p css={styles.baseText}>最高温度</p>
           {
             editFlag && editItemId === item.id ?
-            <input css={styles.baseText} type="text" value={itemTemperature ? itemTemperature : ''} onChange={(e) => setItemTemperature(e.target.value)} /> :
+            <input css={[styles.baseText, styles.inputText]} type="text" value={itemTemperature ? itemTemperature : ''} onChange={(e) => setItemTemperature(e.target.value)} /> :
             <p css={styles.baseText}>{item.maximum_temperature}</p>
           }
         </div>
@@ -196,9 +196,17 @@ const styles = {
     font-size: ${vw(24)};
     font-weight: 700;
     width: fit-content;
+    white-space: nowrap;
 
     @media (min-width: ${PROJECT.BP}px) {
       font-size: 20px;
+    }
+  `,
+  inputText: css `
+    width: ${vw(380)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      width: 380px;
     }
   `,
   itemContainer: css `
