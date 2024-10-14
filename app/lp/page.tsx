@@ -27,15 +27,12 @@ export default function Lp() {
   };
   
   useEffect(() => {
-    let createFlag = true;
-    users?.map((user: userType) => {
-      if( session?.user?.email === user.email ) createFlag = false;
-    })
-    if( createFlag === true ){
-      handleCreateUser();
-      console.log(`create`);
-    } else {
-      console.log(`false`);
+    if(session){
+      let createFlag = true;
+      users?.map((user: userType) => {
+        if( session?.user?.email === user.email ) createFlag = false;
+      })
+      if( createFlag === true ) handleCreateUser();
     }
   }, [session])
 
