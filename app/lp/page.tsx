@@ -10,8 +10,6 @@ export default function Lp() {
   const { data: session } = useSession();
   const { users, mutate } = useUsers();
 
-  console.log(session);
-
   const handleCreateUser = async () => {
     const response = await fetch(`${API_URL}/createUser`, {
       method: "POST",

@@ -7,7 +7,7 @@ async function fetcher(key: string) {
 
 export const useItems = () => {
   const { data, isLoading, error, mutate } = useSWR(
-    `${API_URL}/allItems`,
+    `${API_URL}/getItems`,
     fetcher
   );
 
