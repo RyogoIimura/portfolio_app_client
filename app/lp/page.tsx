@@ -10,11 +10,14 @@ export default function Lp() {
   const { data: session } = useSession();
   const { users, mutate } = useUsers();
 
+  console.log(session);
+
   const handleCreateUser = async () => {
     const response = await fetch(`${API_URL}/createUser`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        id: session?.user?.id,
         name: session?.user?.name,
         email: session?.user?.email,
       }),
@@ -25,7 +28,7 @@ export default function Lp() {
       mutate([...users, newUser]);
     }
   };
-  
+
   useEffect(() => {
     if(session){
       let createFlag = true;
