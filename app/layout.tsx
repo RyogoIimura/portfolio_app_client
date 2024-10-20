@@ -1,12 +1,14 @@
 "use client";
 import "./globals.css";
 import NextAuthProvider from './providers/NextAuth'
+import { css } from "@emotion/react";
 
 // import type { Metadata } from "next";
 import { Noto_Sans_JP } from 'next/font/google'
-import { HEAD } from '../data/AppData'
+import { HEAD, PROJECT } from '../data/AppData'
 import Header from "./components/Header";
 import Footer from './components/Footer'
+import { vw } from "./utils/Responsive";
 
 const noto_sans_jp = Noto_Sans_JP({
   subsets: ['latin'],
@@ -29,7 +31,10 @@ export default function RootLayout({
         <title>{HEAD.NAME}</title>
         <meta name="description" content={HEAD.DESCRIPTION}/>
       </head>
-      <body className={noto_sans_jp.className}>
+      <body
+        className={noto_sans_jp.className}
+        css={styles.manageWrapper}
+      >
         <NextAuthProvider>
           <Header />
           {children}
@@ -38,4 +43,14 @@ export default function RootLayout({
       </body>
     </html>
   );
+}
+
+const styles = {
+  manageWrapper: css `
+    margin: ${vw(140)} auto 0;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      margin: 120px auto 0;
+    }
+  `,
 }

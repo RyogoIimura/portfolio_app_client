@@ -3,8 +3,11 @@ export type userType = {
   name: string;
   email: string;
   tel?: string;
-  address?: string;
-  birth?: string;
+  post?: string;
+  prefecture?: string;
+  city?: string;
+  address1?: string;
+  address2?: string;
   created_at: Date;
   updated_at: Date;
 }
