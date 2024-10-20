@@ -1,28 +1,21 @@
 "use client";
 import { css } from "@emotion/react";
-
 import { manrope } from "../utils/Fonts";
-import { useUsers } from "@/hooks/useUsers";
+
 import { useSession } from "next-auth/react";
-import { API_URL } from "@/constants/url";
+import { useUsers } from "@/hooks/useUsers";
+import { userType } from "@/types/types";
 
 export default function User() {
   const { data: session } = useSession();
   const { users, mutate } = useUsers();
 
-  const handleGetUser = async () => {
-    if(session){
-      const response = await fetch(`${API_URL}/getUser/${session.user?.id}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-
-      if (response.ok) {
-        console.log(response);
-      }
-    }
-  };
-  handleGetUser();
+  let user: userType;
+  if(session){
+    users.forEach((e: userType) => {
+      if(e.id === session.user?.id) user = e;
+    })
+  }
 
   return (
     <>
