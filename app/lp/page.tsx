@@ -31,7 +31,7 @@ export default function Lp() {
     if(session){
       let createFlag = true;
       users?.map((user: userType) => {
-        if( session?.user?.email === user.email ) createFlag = false;
+        if( session?.user?.id === user.id ) createFlag = false;
       })
       if( createFlag === true ) handleCreateUser();
     }

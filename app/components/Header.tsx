@@ -9,7 +9,7 @@ import { PROJECT } from '../../data/AppData'
 import { manrope, dela_gothic } from "../utils/Fonts";
 import { Responsive } from '../utils/Responsive';
 import Navigation from './Navigation';
-import { MANAGE_EMAIL } from '../../constants/url';
+import { MANAGE_ID } from '../../constants/url';
 
 
 const Header = () => {
@@ -70,7 +70,7 @@ const Header = () => {
                     css={[styles.buttonText, styles.userNavText]}
                     onClick={() => signOut()}
                   >SIGN OUT</button>
-                  {session.user?.email === MANAGE_EMAIL ? (
+                  {session.user?.id === MANAGE_ID ? (
                     <Link
                       className={` ${dela_gothic.className}`}
                       css={[styles.buttonText, styles.userNavText]}
