@@ -21,7 +21,7 @@ export default function User() {
         if(e.id === session.user?.id) setUser(e);
       })
     }
-  }, [session])
+  }, [session, users])
 
   const [editFlag, setEditFlag] = useState(false);
   const [editUser, setEditUser] = useState<Omit<userType, "id" | "created_at" | "updated_at" >>({
