@@ -36,7 +36,7 @@ export default function Lp() {
       if( createFlag === true ) handleCreateUser();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+  }, [session, users])
 
   return (
     <>
