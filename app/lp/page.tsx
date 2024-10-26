@@ -9,6 +9,7 @@ import { userType } from "@/types/types";
 export default function Lp() {
   const { data: session } = useSession();
   const { users, mutate } = useUsers();
+  // console.log(session, users);
 
   useEffect(() => {
     const handleCreateUser = async () => {
@@ -27,7 +28,7 @@ export default function Lp() {
         mutate([...users, newUser]);
       }
     };
-    
+
     if(session){
       let createFlag = true;
       users?.map((user: userType) => {
