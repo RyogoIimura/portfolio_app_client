@@ -75,12 +75,14 @@ const Navigation = (props: NavigationProps) => {
                   className={`${dela_gothic.className}`}
                   css={[styles.buttonText, styles.userNavText]}
                   href="./manage"
+                  onClick={navOpen}
                 >MANAGE</Link>
               ) : (
                 <Link
                   className={`${dela_gothic.className}`}
                   css={[styles.buttonText, styles.userNavText]}
                   href="./user"
+                  onClick={navOpen}
                 >USER</Link>
               )}
             </div>
