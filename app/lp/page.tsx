@@ -139,7 +139,7 @@ export default function Lp() {
       <div css={styles.parallaxContainer}>
         {[1,2,3,4,5,6,7,8].map((value, index) => (
           <div key={index} css={styles.parallaxImg} className="parallaxImg">
-            <Image src="/images/lp/look_1.jpg" alt="Look1 Img" layout="fill" objectFit="contain" />
+            <Image src="/images/lp/parallax.jpg" alt="Parallax Img" layout="fill" objectFit="contain" />
           </div>
         ))}
       </div>
@@ -149,20 +149,47 @@ export default function Lp() {
           className={`${dela_gothic.className}`}
           css={styles.contentsTitle}
         >FEATURE</h2>
+        <p
+          css={styles.contentsText}
+        >吾妻峡に入ると一気に気温が下がり<br/>川が近くにあることを感じることができます。<br/>受付でサウナをレンタルして<br/>薪に火を起こし、サウナスタート。<br/>初心者の方はサポートいたします。<br/>サウナ以外にも、サウナハット、ポンチョ<br/>もレンタル出来ますので気軽に<br/>お申し付けください。
+        </p>
+        <div css={styles.featureImg1}>
+          <Image src="/images/lp/feature_1.jpg" alt="Feature1 Img" layout="fill" objectFit="contain" />
+        </div>
+        <div css={styles.featureImg2}>
+          <Image src="/images/lp/feature_2.jpg" alt="Feature2 Img" layout="fill" objectFit="contain" />
+        </div>
       </div>
 
-      <div>
+      <div css={styles.bgWrapper}>
         <h2
           className={`${dela_gothic.className}`}
           css={styles.contentsTitle}
         >SAUNA</h2>
+        <div css={styles.bgContent}>
+          <p
+            css={styles.bgText}
+          >・温度　・・・　約110度<br/>・収容人数　・・・　最大4人<br/>・時間　・・・　3時間単位でレンタル可能です</p>
+          <p
+            css={[styles.bgText, styles.bgAnnotation]}
+          >テントサウナの準備、薪の管理、撤収作業はお客様自身にお願いしています（レンタル時間内にお済ませください）<br/>※サポートが必要な方はお気軽にお申し付けください</p>
+        </div>
       </div>
 
-      <div>
+      <div css={[styles.bgWrapper, styles.priceWrapper]}>
         <h2
           className={`${dela_gothic.className}`}
           css={styles.contentsTitle}
         >PRICE</h2>
+        <div css={[styles.bgContent, styles.priceContent]}>
+          <p
+            css={[styles.bgText, styles.priceText]}
+          >・テントサウナ（3時間）<br/>　2人　・・・　¥13,000(inc. tax)<br/>　3人　・・・　¥18,000(inc. tax)<br/>　4人　・・・　¥23,000(inc. tax)<br/>　5人　・・・　¥27,000(inc. tax)<br/>・サウナハット　・・・　¥500(inc. tax)<br/>・ポンチョ　・・・　¥1,000(inc. tax)
+          </p>
+          <div css={styles.priceImg}>
+            <Image src="/images/lp/price.jpg" alt="Price Img" layout="fill" objectFit="contain" />
+          </div>
+        </div>
       </div>
     </>
   );
@@ -263,7 +290,7 @@ const styles = {
     padding: ${vw(140)} 0 ${vw(180)};
 
     @media (min-width: ${PROJECT.BP}px) {
-      padding: 120px 0 160px;
+      padding: 120px 0 150px;
     }
   `,
   contentsTitle: css `
@@ -290,7 +317,7 @@ const styles = {
 
   conceptWrapper: css `
     background-color: ${PROJECT.KEYCOLOR};
-    margin-top: ${vw(200)};
+    margin-top: ${vw(180)};
 
     @media (min-width: ${PROJECT.BP}px) {
       margin-top: 160px;
@@ -318,6 +345,94 @@ const styles = {
     @media (min-width: ${PROJECT.BP}px) {
       width: 364px;
       height: 364px;
+    }
+  `,
+
+  featureImg1: css `
+    width: ${vw(650)};
+    height: ${vw(488)};
+    margin: ${vw(120)} auto 0;
+    position: relative;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      width: 650px;
+      height: 450px;
+      margin: 100px auto 0;
+    }
+  `,
+  featureImg2: css `
+    width: ${vw(340)};
+    height: ${vw(500)};
+    margin: ${vw(80)} auto 0;
+    position: relative;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      width: 340px;
+      height: 500px;
+      margin: 80px auto 0;
+    }
+  `,
+
+  bgWrapper: css `
+    width: ${vw(650)};
+    padding: ${vw(80)} ${vw(40)} ${vw(60)};
+    background-color: ${PROJECT.BGCOLOR};
+    margin: 0 auto;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      width: 600px;
+      padding: 60px 38px 76px;
+    }
+  `,
+  bgContent: css `
+    margin-top: ${vw(46)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      margin-top: 30px;
+    }
+  `,
+  bgText: css `
+    font-size: ${vw(18)};
+    line-height: 2.5em;
+    letter-spacing: .05em;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 14px;
+    }
+  `,
+  bgAnnotation: css `
+    font-size: ${vw(14)};
+    margin-top: ${vw(40)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 12px;
+      margin-top: 30px;
+    }
+  `,
+
+  priceWrapper: css `
+    margin-top: ${vw(80)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      margin-top: 60px;
+    }
+  `,
+  priceContent: css `
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  `,
+  priceText: css `
+    width: fit-content;
+  `,
+  priceImg: css `
+    width: ${vw(160)};
+    height: ${vw(210)};
+    position: relative;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      width: 172px;
+      height: 226px;
     }
   `,
 }
