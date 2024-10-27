@@ -66,11 +66,16 @@ const styles = {
 
     @media (min-width: ${PROJECT.BP}px) {
       font-size: 18px;
+
+      @media (max-width: 920px) {
+        font-size: calc(100vw * (18/920));
+      }
     }
   `,
   title: css`
     font-size: ${vw(38)};
-    letter-spacing: .02em;
+    line-height: 1.4em;
+    letter-spacing: .04em;
     text-align: center;
     color: #fff;
     padding-bottom: ${vw(40)};
@@ -78,6 +83,11 @@ const styles = {
     @media (min-width: ${PROJECT.BP}px) {
       font-size: 42px;
       padding-bottom: 40px;
+
+      @media (max-width: 920px) {
+        font-size: calc(100vw * (42/920));
+        padding-bottom: calc(100vw * (40/920));
+      }
     }
   `,
 }

@@ -100,40 +100,55 @@ export default function Lp() {
             <Image src="/images/lp/fv_2_sp.jpg" alt="Fv2 Img" layout="fill" objectFit="contain" css={Responsive.sp} />
           </SwiperSlide>
         </Swiper>
-        <p
-          className={`${manrope.className}`}
-        >RIVERSIDE SAUNA RENTAL</p>
-        <h1
-          className={`${dela_gothic.className}`}
-        >THE AZUMA<br/>GORGE SAUNA </h1>
-        <div>
-          {linksName.map((value, index) => (
-            <div
-              key={index}
-              className={` ${dela_gothic.className}`}
-              css={styles.pageLink}
-            >
-              <span
-                css={styles.pageLinkDot}
-              >・&nbsp;</span>
-              {linksName[index]}
-            </div>
-          ))}
+        <div css={styles.fvTextWrapper}>
+          <p
+            className={`${manrope.className}`}
+            css={styles.subTitle}
+          >RIVERSIDE SAUNA RENTAL</p>
+          <h1
+            className={`${dela_gothic.className}`}
+            css={styles.title}
+          >THE AZUMA <br/>GORGE SAUNA </h1>
+          <div css={styles.pageLinkWrapper}>
+            {linksName.map((value, index) => (
+              <div
+                key={index}
+                className={` ${dela_gothic.className}`}
+                css={styles.pageLink}
+              >
+                <span
+                  css={styles.pageLinkDot}
+                >・&nbsp;</span>
+                {linksName[index]}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div>
+      <div css={[styles.contentsWrapper, styles.conceptWrapper]}>
+        <h2
+          className={`${dela_gothic.className}`}
+          css={[styles.contentsTitle, styles.conceptTitle]}
+        >CONCEPT</h2>
+        <p
+          css={[styles.contentsText, styles.conceptText]}
+        >埼玉県飯能市の入間川にある吾妻峡は<br/>都心から約一時間で深い自然を堪能できます。<br/>THE AZUMA GORGE SAUNA ではテントサウナを<br/>レンタルすることができます。<br/>誰にも邪魔されずにサウナをして、川に入り整う。<br/>最高の休日をお過ごしください。</p>
+      </div>
+
+      <div css={styles.parallaxContainer}>
+        {[1,2,3,4,5,6,7,8].map((value, index) => (
+          <div key={index} css={styles.parallaxImg} className="parallaxImg">
+            <Image src="/images/lp/look_1.jpg" alt="Look1 Img" layout="fill" objectFit="contain" />
+          </div>
+        ))}
+      </div>
+
+      <div css={styles.contentsWrapper}>
         <h2
           className={`${dela_gothic.className}`}
           css={styles.contentsTitle}
-        >CONCEPT</h2>
-        <div css={styles.parallaxContainer}>
-          {[1,2,3,4,5,6,7,8].map((value, index) => (
-            <div key={index} css={styles.parallaxImg} className="parallaxImg">
-              <Image src="/images/lp/look_1.jpg" alt="Look1 Img" layout="fill" objectFit="contain" />
-            </div>
-          ))}
-        </div>
+        >FEATURE</h2>
       </div>
 
       <div>
@@ -157,45 +172,135 @@ const styles = {
   fvSwiper: css `
     width: ${vw(650)};
     height: ${vw(650)};
-    margin: ${vw(160)} auto 0;
+    margin: 0 auto;
     border-radius: ${vw(30)};
     overflow: hidden;
 
     @media (min-width: ${PROJECT.BP}px) {
       width: 840px;
       height: 530px;
-      margin: 120px auto 0;
       border-radius: 15px;
 
-      @media (max-width: 1000px) {
-        width: calc(100vw * (840/1000));
-        height: calc(100vw * (530/1000));
+      @media (max-width: 920px) {
+        width: calc(100vw * (840/920));
+        height: calc(100vw * (530/920));
       }
     }
   `,
+  fvTextWrapper: css`
+    width: ${vw(608)};
+    margin: ${vw(30)} auto 0;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      width: 790px;
+      margin: -54px auto 0;
+      position: relative;
+      z-index: 5;
+
+      @media (max-width: 920px) {
+        width: calc(100vw * (790/920));
+        margin: calc(100vw * (-54/920)) auto 0;
+      }
+    }
+  `,
+  subTitle: css`
+    font-size: ${vw(24)};
+    font-weight: 600;
+    letter-spacing: .05em;
+    color: ${PROJECT.SUBCOLOR};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 18px;
+
+      @media (max-width: 920px) {
+        font-size: calc(100vw * (18/920));
+      }
+    }
+  `,
+  title: css`
+    font-size: ${vw(52)};
+    line-height: 1.2em;
+    letter-spacing: .04em;
+    color: ${PROJECT.KEYCOLOR};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 42px;
+
+      @media (max-width: 920px) {
+        font-size: calc(100vw * (42/920));
+      }
+    }
+  `,
+  pageLinkWrapper: css `
+    width: 100%;
+    margin-top: ${vw(80)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      display: flex;
+      justify-content: center;
+      margin-top: 80px;
+    }
+  `,
   pageLink: css `
-    font-size: ${vw(38)};
+    font-size: ${vw(28)};
     font-weight: 800;
     letter-spacing: .1em;
     color: ${PROJECT.KEYCOLOR};
-    margin-top: ${vw(60)};
+    margin-top: ${vw(36)};
     text-decoration: none;
 
     @media (min-width: ${PROJECT.BP}px) {
-      font-size: 25px;
-      margin-top: 50px;
+      font-size: 18px;
+      margin: 0 22px;
+      cursor: pointer;
     }
   `,
   pageLinkDot: css `
     color: ${PROJECT.SUBCOLOR};
   `,
 
+  contentsWrapper: css `
+    padding: ${vw(140)} 0 ${vw(180)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      padding: 120px 0 160px;
+    }
+  `,
   contentsTitle: css `
     font-size: ${vw(36)};
+    text-align: center;
+    color: ${PROJECT.KEYCOLOR};
 
     @media (min-width: ${PROJECT.BP}px) {
       font-size: 30px;
     }
+  `,
+  contentsText: css `
+    font-size: ${vw(24)};
+    line-height: 2.5em;
+    text-align: center;
+    letter-spacing: .1em;
+    margin-top: ${vw(60)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 18px;
+      margin-top: 60px;
+    }
+  `,
+
+  conceptWrapper: css `
+    background-color: ${PROJECT.KEYCOLOR};
+    margin-top: ${vw(200)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      margin-top: 160px;
+    }
+  `,
+  conceptTitle: css `
+    color: #fff;
+  `,
+  conceptText: css `
+    color: #fff;
   `,
 
   parallaxContainer: css `
