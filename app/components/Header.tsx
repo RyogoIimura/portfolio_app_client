@@ -23,6 +23,7 @@ const Header = () => {
     <>
       <div
         css={styles.headerContainer}
+        id='header'
       >
         <div
           css={styles.headerContContainer}
@@ -54,8 +55,8 @@ const Header = () => {
                   <Image
                     src={session.user?.image ?? "/images/auth/user_logo.svg"}
                     alt="UserLogo"
-                    layout="fill"
-                    objectFit="contain"
+                    fill
+                    style={{ objectFit: 'contain'}}
                   />
                 </button>
                 <div

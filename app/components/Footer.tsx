@@ -13,8 +13,8 @@ const Footer = () => {
       <div
         css={styles.footerContainer}
       >
-        <Image src="/images/footer/footer_sp.jpg" alt="Footer Img" layout="fill" objectFit="contain" css={Responsive.sp} />
-        <Image src="/images/footer/footer_pc.jpg" alt="Footer Img" layout="fill" objectFit="contain" css={Responsive.pc} />
+        <Image src="/images/footer/footer_sp.jpg" alt="Footer Img" fill style={{ objectFit: 'contain'}} css={Responsive.sp} />
+        <Image src="/images/footer/footer_pc.jpg" alt="Footer Img" fill style={{ objectFit: 'contain'}} css={Responsive.pc} />
         <div
           css={styles.textWrapper}
         >

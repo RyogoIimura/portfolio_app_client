@@ -8,9 +8,6 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import 'swiper/css/effect-fade';
-import Gsap from 'gsap'
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { API_URL } from "@/constants/url";
 import { useUsers } from "../../hooks/useUsers";
@@ -19,6 +16,7 @@ import { Responsive } from "../utils/Responsive";
 import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
 import { manrope, dela_gothic } from "../utils/Fonts";
+import { parallaxImg, toLpContent } from "../utils/lp/gsapAnimation";
 
 export default function Lp() {
   const { data: session } = useSession();
@@ -55,26 +53,8 @@ export default function Lp() {
   const linksName = ['CONCEPT', 'FEATURE', 'SAUNA', 'PRICE'];
 
   useEffect(() => {
-    const gsap = Gsap;
-    gsap.registerPlugin(ScrollToPlugin)
-    gsap.registerPlugin(ScrollTrigger);
-
-    const parallaxElm: Array<HTMLElement> = gsap.utils.toArray(".parallaxImg");
-    parallaxElm.forEach((e) => {
-      gsap.fromTo( e,
-        { x: 0 },
-        {
-          x: -300,
-          scrollTrigger: {
-            trigger: e,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-            // markers: true
-          }
-        }
-      );
-    });
+    parallaxImg();
+    toLpContent();
   }),[];
 
   return (
@@ -92,12 +72,12 @@ export default function Lp() {
           css={styles.fvSwiper}
         >
           <SwiperSlide>
-            <Image src="/images/lp/fv_1_pc.jpg" alt="Fv1 Img" layout="fill" objectFit="contain" css={Responsive.pc} />
-            <Image src="/images/lp/fv_1_sp.jpg" alt="Fv1 Img" layout="fill" objectFit="contain" css={Responsive.sp} />
+            <Image src="/images/lp/fv_1_pc.jpg" alt="Fv1 Img" fill style={{ objectFit: 'contain'}} css={Responsive.pc} />
+            <Image src="/images/lp/fv_1_sp.jpg" alt="Fv1 Img" fill style={{ objectFit: 'contain'}} css={Responsive.sp} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image src="/images/lp/fv_2_pc.jpg" alt="Fv2 Img" layout="fill" objectFit="contain" css={Responsive.pc} />
-            <Image src="/images/lp/fv_2_sp.jpg" alt="Fv2 Img" layout="fill" objectFit="contain" css={Responsive.sp} />
+            <Image src="/images/lp/fv_2_pc.jpg" alt="Fv2 Img" fill style={{ objectFit: 'contain'}} css={Responsive.pc} />
+            <Image src="/images/lp/fv_2_sp.jpg" alt="Fv2 Img" fill style={{ objectFit: 'contain'}} css={Responsive.sp} />
           </SwiperSlide>
         </Swiper>
         <div css={styles.fvTextWrapper}>
@@ -113,8 +93,9 @@ export default function Lp() {
             {linksName.map((value, index) => (
               <div
                 key={index}
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className} pageLinkButton`}
                 css={styles.pageLink}
+                data-num={index}
               >
                 <span
                   css={styles.pageLinkDot}
@@ -126,7 +107,10 @@ export default function Lp() {
         </div>
       </div>
 
-      <div css={[styles.contentsWrapper, styles.conceptWrapper]}>
+      <div
+        className="lpContent"
+        css={[styles.contentsWrapper, styles.conceptWrapper]}
+      >
         <h2
           className={`${dela_gothic.className}`}
           css={[styles.contentsTitle, styles.conceptTitle]}
@@ -139,12 +123,15 @@ export default function Lp() {
       <div css={styles.parallaxContainer}>
         {[1,2,3,4,5,6,7,8].map((value, index) => (
           <div key={index} css={styles.parallaxImg} className="parallaxImg">
-            <Image src="/images/lp/parallax.jpg" alt="Parallax Img" layout="fill" objectFit="contain" />
+            <Image src="/images/lp/parallax.jpg" alt="Parallax Img" fill style={{ objectFit: 'contain'}} />
           </div>
         ))}
       </div>
 
-      <div css={styles.contentsWrapper}>
+      <div
+        className="lpContent"
+        css={styles.contentsWrapper}
+      >
         <h2
           className={`${dela_gothic.className}`}
           css={styles.contentsTitle}
@@ -154,14 +141,17 @@ export default function Lp() {
         >吾妻峡に入ると一気に気温が下がり<br/>川が近くにあることを感じることができます。<br/>受付でサウナをレンタルして<br/>薪に火を起こし、サウナスタート。<br/>初心者の方はサポートいたします。<br/>サウナ以外にも、サウナハット、ポンチョ<br/>もレンタル出来ますので気軽に<br/>お申し付けください。
         </p>
         <div css={styles.featureImg1}>
-          <Image src="/images/lp/feature_1.jpg" alt="Feature1 Img" layout="fill" objectFit="contain" />
+          <Image src="/images/lp/feature_1.jpg" alt="Feature1 Img" fill style={{ objectFit: 'contain'}} />
         </div>
         <div css={styles.featureImg2}>
-          <Image src="/images/lp/feature_2.jpg" alt="Feature2 Img" layout="fill" objectFit="contain" />
+          <Image src="/images/lp/feature_2.jpg" alt="Feature2 Img" fill style={{ objectFit: 'contain'}} />
         </div>
       </div>
 
-      <div css={styles.bgWrapper}>
+      <div
+        className="lpContent"
+        css={styles.bgWrapper}
+      >
         <h2
           className={`${dela_gothic.className}`}
           css={styles.contentsTitle}
@@ -176,7 +166,10 @@ export default function Lp() {
         </div>
       </div>
 
-      <div css={[styles.bgWrapper, styles.priceWrapper]}>
+      <div
+        className="lpContent"
+        css={[styles.bgWrapper, styles.priceWrapper]}
+      >
         <h2
           className={`${dela_gothic.className}`}
           css={styles.contentsTitle}
@@ -187,7 +180,7 @@ export default function Lp() {
           >・テントサウナ（3時間）<br/>　2人　・・・　¥13,000(inc. tax)<br/>　3人　・・・　¥18,000(inc. tax)<br/>　4人　・・・　¥23,000(inc. tax)<br/>　5人　・・・　¥27,000(inc. tax)<br/>・サウナハット　・・・　¥500(inc. tax)<br/>・ポンチョ　・・・　¥1,000(inc. tax)
           </p>
           <div css={styles.priceImg}>
-            <Image src="/images/lp/price.jpg" alt="Price Img" layout="fill" objectFit="contain" />
+            <Image src="/images/lp/price.jpg" alt="Price Img" fill style={{ objectFit: 'contain'}} />
           </div>
         </div>
       </div>

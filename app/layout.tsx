@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={HEAD.LOCALE}>
+    <html suppressHydrationWarning={true} lang={HEAD.LOCALE}>
       <head>
         <title>{HEAD.NAME}</title>
         <meta name="description" content={HEAD.DESCRIPTION}/>

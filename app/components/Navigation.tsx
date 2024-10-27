@@ -51,7 +51,7 @@ const Navigation = (props: NavigationProps) => {
           href=""
         >▶︎　ご予約はこちらから</Link>
         <div>
-          <PageLinks />
+          <PageLinks navOpen={navOpen} />
         </div>
 
         {session ? (
@@ -60,8 +60,8 @@ const Navigation = (props: NavigationProps) => {
               <Image
                 src={session.user?.image ?? "/images/auth/user_logo.svg"}
                 alt="UserLogo"
-                layout="fill"
-                objectFit="contain"
+                fill
+                style={{ objectFit: 'contain'}}
               />
             </button>
             <div>
