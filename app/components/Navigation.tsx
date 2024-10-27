@@ -9,6 +9,7 @@ import { manrope, dela_gothic } from "../utils/Fonts";
 import { vw, Responsive } from '../utils/Responsive';
 import { Easing } from '../utils/Easing';
 import PageLinks from './PageLinks';
+import { MANAGE_ID } from "@/constants/url";
 
 
 type NavigationProps = {
@@ -65,20 +66,28 @@ const Navigation = (props: NavigationProps) => {
             </button>
             <div>
               <button
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className}`}
                 css={[styles.buttonText, styles.userNavText]}
                 onClick={() => signOut()}
               >SIGN OUT</button>
-              <Link
-                className={` ${dela_gothic.className}`}
-                css={[styles.buttonText, styles.userNavText]}
-                href="./manage"
-              >MANAGE</Link>
+              {session.user?.id === MANAGE_ID ? (
+                <Link
+                  className={`${dela_gothic.className}`}
+                  css={[styles.buttonText, styles.userNavText]}
+                  href="./manage"
+                >MANAGE</Link>
+              ) : (
+                <Link
+                  className={`${dela_gothic.className}`}
+                  css={[styles.buttonText, styles.userNavText]}
+                  href="./user"
+                >USER</Link>
+              )}
             </div>
           </div>
         ) : (
           <button
-            className={` ${dela_gothic.className}`}
+            className={`${dela_gothic.className}`}
             css={[styles.buttonText, styles.signInButton, Responsive.sp]}
             onClick={() => signIn()}
           >SIGN IN</button>
@@ -208,7 +217,9 @@ const styles = {
     position: relative;
   `,
   userNavText: css `
-    display: inline-block;
+    width: 100%;
+    display: block;
+    text-align: left;
     margin-top: ${vw(20)};
   `,
 }
