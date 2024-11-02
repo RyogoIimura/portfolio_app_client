@@ -7,29 +7,29 @@ import Image from "next/image";
 import { PROJECT } from '../../data/AppData'
 import { manrope, dela_gothic } from "../utils/Fonts";
 import { vw, Responsive } from '../utils/Responsive';
-import { Easing } from '../utils/Easing';
 import PageLinks from './PageLinks';
 import { MANAGE_ID } from "@/constants/url";
 
 
 type NavigationProps = {
-  navFlag: boolean;
   navOpen: () => void;
 };
 
 const Navigation = (props: NavigationProps) => {
-  const { navFlag, navOpen } = props;
+  const { navOpen } = props;
   const { data: session } = useSession();
 
   return (
     <>
       <div
-        css={navFlag ? styles.bg : [styles.bg, styles.bgAnime]}
+        id='bg'
+        css={styles.bg}
         onClick={navOpen}
       ></div>
 
       <div
-        css={navFlag ? styles.navContainer : [styles.navContainer, styles.navAnime]}
+        id='nav'
+        css={styles.navContainer}
       >
         <div
           css={styles.hamburger}
@@ -46,10 +46,19 @@ const Navigation = (props: NavigationProps) => {
           className={`${manrope.className}`}
           css={styles.navTitle}
         >AZUMA GORGE SAUNA</h2>
-        <Link
-          css={styles.reserveLink}
-          href=""
-        >▶︎　ご予約はこちらから</Link>
+        {
+          session ? (
+            <Link
+              css={styles.reserveLink}
+              href='./booking'
+            >▶︎　ご予約はこちらから</Link>
+          ) : (
+            <div
+              css={styles.reserveLink}
+              onClick={() => signIn()}
+            >▶︎　ログイン後ご予約できます</div>
+          )
+        }
         <div>
           <PageLinks navOpen={navOpen} />
         </div>
@@ -110,8 +119,6 @@ const styles = {
     z-index: 105;
     top: 0;
     left: 0;
-  `,
-  bgAnime: css `
     display: none;
   `,
 
@@ -125,18 +132,12 @@ const styles = {
     z-index: 110;
     top: 0;
     right: 0;
-
-    opacity: 1;
-    transition: transform .6s ${Easing.outExpo}, opacity .4s ${Easing.outExpo};
+    display: none;
 
     @media (min-width: ${PROJECT.BP}px) {
       width: 400px;
       padding: 0 0 270px 30px;
     }
-  `,
-  navAnime: css `
-    opacity: 0;
-    transform: translateX(100%)
   `,
 
   hamburger: css`
@@ -189,7 +190,8 @@ const styles = {
     display:inline-block;
     margin-top: ${vw(200)};
     text-decoration: none;
-
+    cursor: pointer;
+    
     @media (min-width: ${PROJECT.BP}px) {
       font-size: 18px;
       margin-top: 110px;

@@ -10,14 +10,23 @@ import { manrope, dela_gothic } from "../utils/Fonts";
 import { Responsive } from '../utils/Responsive';
 import Navigation from './Navigation';
 import { MANAGE_ID } from '../../constants/url';
+import { navCloseFunc, navOpenFunc, userNavCloseFunc, userNavOpenFunc } from "../utils/nav/gsapAnimation";
 
 
 const Header = () => {
-  const [navFlag, setNavFlag] = useState<boolean>(false);
-  const navOpen = () => setNavFlag(!navFlag);
-  const [userNavFlag, setUserNavFlag] = useState<boolean>(false);
-  const userNavOpen = () => setUserNavFlag(!userNavFlag);
   const { data: session } = useSession();
+  const [navFlag, setNavFlag] = useState<boolean>(false);
+  const navOpen = () => {
+    setNavFlag(!navFlag);
+    if(navFlag === false ) navOpenFunc();
+    else navCloseFunc();
+  };
+  const [userNavFlag, setUserNavFlag] = useState<boolean>(false);
+  const userNavOpen = () => {
+    setUserNavFlag(!userNavFlag)
+    if(userNavFlag === false ) userNavOpenFunc();
+    else userNavCloseFunc();
+  };
 
   return (
     <>
@@ -28,10 +37,19 @@ const Header = () => {
         <div
           css={styles.headerContContainer}
         >
-          <Link
-            css={styles.reserveLink}
-            href=""
-          >▶︎　ご予約はこちらから</Link>
+          {
+            session ? (
+              <Link
+                css={styles.reserveLink}
+                href='./booking'
+              >▶︎　ご予約はこちらから</Link>
+            ) : (
+              <div
+                css={styles.reserveLink}
+                onClick={() => signIn()}
+              >▶︎　ログイン後ご予約できます</div>
+            )
+          }
           <Link
             className={` ${manrope.className}`}
             css={[styles.headerTitle, Responsive.pc]}
@@ -59,33 +77,32 @@ const Header = () => {
                     style={{ objectFit: 'contain'}}
                   />
                 </button>
-                <div
-                  css={userNavFlag ? (
-                    styles.userNav
-                  ) : (
-                    [styles.userNav, styles.userNavAnime]
-                  )}
-                >
-                  <button
-                    className={` ${dela_gothic.className}`}
-                    css={[styles.buttonText, styles.userNavText]}
-                    onClick={() => signOut()}
-                  >SIGN OUT</button>
-                  {session.user?.id === MANAGE_ID ? (
-                    <Link
+                <div css={styles.userNav}>
+                  <div
+                    id='userNavCont'
+                    css={styles.userNavCont}
+                  >
+                    <button
                       className={` ${dela_gothic.className}`}
                       css={[styles.buttonText, styles.userNavText]}
-                      href="./manage"
-                      onClick={userNavOpen}
-                    >MANAGE</Link>
-                  ) : (
-                    <Link
-                      className={` ${dela_gothic.className}`}
-                      css={[styles.buttonText, styles.userNavText]}
-                      href="./user"
-                      onClick={userNavOpen}
-                    >USER</Link>
-                  )}
+                      onClick={() => signOut()}
+                    >SIGN OUT</button>
+                    {session.user?.id === MANAGE_ID ? (
+                      <Link
+                        className={` ${dela_gothic.className}`}
+                        css={[styles.buttonText, styles.userNavText]}
+                        href="./manage"
+                        onClick={userNavOpen}
+                      >MANAGE</Link>
+                    ) : (
+                      <Link
+                        className={` ${dela_gothic.className}`}
+                        css={[styles.buttonText, styles.userNavText]}
+                        href="./user"
+                        onClick={userNavOpen}
+                      >USER</Link>
+                    )}
+                  </div>
                 </div>
               </div>
             ) : (
@@ -114,10 +131,7 @@ const Header = () => {
         </div>
       </div>
 
-      <Navigation
-        navFlag={navFlag}
-        navOpen={navOpen}
-      />
+      <Navigation navOpen={navOpen} />
     </>
   );
 };
@@ -132,6 +146,7 @@ const styles = {
     z-index: 100;
     top: 0;
     left: 0;
+    opacity: 0;
 
     @media (min-width: ${PROJECT.BP}px) {
       height: 70px;
@@ -155,6 +170,7 @@ const styles = {
     color: #fff;
     margin: auto 0;
     text-decoration: none;
+    cursor: pointer;
 
     @media (min-width: ${PROJECT.BP}px) {
       font-size: 16px;
@@ -198,15 +214,15 @@ const styles = {
     position: relative;
   `,
   userNav: css `
-    padding: 20px 26px;
-    border-radius: 10px;
-    background-color: ${PROJECT.KEYCOLOR};
     position: absolute;
     bottom: -140px;
     left: 50%;
     transform: translateX(-50%);
   `,
-  userNavAnime: css `
+  userNavCont: css `
+    padding: 20px 26px;
+    border-radius: 10px;
+    background-color: ${PROJECT.KEYCOLOR};
     display: none;
   `,
   userNavButton: css `

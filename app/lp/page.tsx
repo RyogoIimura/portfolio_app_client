@@ -16,7 +16,7 @@ import { Responsive } from "../utils/Responsive";
 import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
 import { manrope, dela_gothic } from "../utils/Fonts";
-import { parallaxImg, toLpContent } from "../utils/lp/gsapAnimation";
+import { fvAnimation, parallaxImg, toLpContent } from "../utils/lp/gsapAnimation";
 
 export default function Lp() {
   const { data: session } = useSession();
@@ -55,11 +55,15 @@ export default function Lp() {
   useEffect(() => {
     parallaxImg();
     toLpContent();
+    fvAnimation();
   }),[];
 
   return (
     <>
-      <div>
+      <div
+        id='fv'
+        css={styles.fv}
+      >
         <Swiper
           modules={[Autoplay, EffectFade]}
           loop={true}
@@ -82,13 +86,37 @@ export default function Lp() {
         </Swiper>
         <div css={styles.fvTextWrapper}>
           <p
+            id='subTitle'
             className={`${manrope.className}`}
             css={styles.subTitle}
           >RIVERSIDE SAUNA RENTAL</p>
           <h1
+            id='title'
             className={`${dela_gothic.className}`}
             css={styles.title}
-          >THE AZUMA <br/>GORGE SAUNA </h1>
+          >
+            <span>T</span>
+            <span>H</span>
+            <span>E</span>
+            <span>&nbsp;</span>
+            <span>A</span>
+            <span>Z</span>
+            <span>U</span>
+            <span>M</span>
+            <span>A</span>
+            <br/>
+            <span>G</span>
+            <span>O</span>
+            <span>R</span>
+            <span>G</span>
+            <span>E</span>
+            <span>&nbsp;</span>
+            <span>S</span>
+            <span>A</span>
+            <span>U</span>
+            <span>N</span>
+            <span>A</span>
+          </h1>
           <div css={styles.pageLinkWrapper}>
             {linksName.map((value, index) => (
               <div
@@ -189,6 +217,9 @@ export default function Lp() {
 }
 
 const styles = {
+  fv: css `
+    opacity: 0;
+  `,
   fvSwiper: css `
     width: ${vw(650)};
     height: ${vw(650)};
