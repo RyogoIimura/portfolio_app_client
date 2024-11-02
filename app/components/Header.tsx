@@ -146,7 +146,6 @@ const styles = {
     z-index: 100;
     top: 0;
     left: 0;
-    opacity: 0;
 
     @media (min-width: ${PROJECT.BP}px) {
       height: 70px;

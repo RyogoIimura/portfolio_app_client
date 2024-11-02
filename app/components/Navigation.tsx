@@ -51,6 +51,7 @@ const Navigation = (props: NavigationProps) => {
             <Link
               css={styles.reserveLink}
               href='./booking'
+              onClick={navOpen}
             >▶︎　ご予約はこちらから</Link>
           ) : (
             <div
