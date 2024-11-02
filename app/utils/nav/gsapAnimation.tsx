@@ -3,8 +3,9 @@ const gsap = Gsap;
 
 export const navOpenFunc = () => {
   gsap.set( '#bg', { display: 'block', opacity: 0 });
-  gsap.set( '#nav', { display: 'block', opacity: 1, x: '30%' });
   gsap.to( '#bg', { duration: .5, ease: 'power4.out', opacity: .5 });
+
+  gsap.set( '#nav', { display: 'block', opacity: 1, x: '30%' });
   gsap.to( '#nav', { duration: .5, ease: 'power4.out', opacity: 1, x: 0 });
 }
 export const navCloseFunc = () => {

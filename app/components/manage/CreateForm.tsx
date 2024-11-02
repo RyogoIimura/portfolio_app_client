@@ -7,6 +7,7 @@ import { vw } from '../../utils/Responsive';
 import { dela_gothic } from "../../utils/Fonts";
 import { useItems } from "../../../hooks/useItems";
 import { API_URL } from "@/constants/url";
+import { addMdFormCloseFunc, addMdFormOpenFunc } from "@/app/utils/manage/nav/gsapAnimation";
 
 
 const CreateForm = () => {
@@ -19,6 +20,11 @@ const CreateForm = () => {
   const [itemCapacity, setItemCapacity] = useState<string | undefined>('');
 
   const [addFlag, setAddFlag] = useState(false);
+  const addMdOpen = () => {
+    setAddFlag(!addFlag);
+    if(addFlag === false ) addMdFormOpenFunc();
+    else addMdFormCloseFunc();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +46,7 @@ const CreateForm = () => {
       mutate([...items, JSON.parse(newItem)]);
     }
 
-    setAddFlag(!addFlag)
+    addMdOpen();
   };
 
   return (
@@ -49,21 +55,21 @@ const CreateForm = () => {
         <button
           css={[styles.button, styles.addButton]}
           className={` ${dela_gothic.className}`}
-          onClick={() => {
-            setAddFlag(!addFlag)
-          }}
+          onClick={() => {addMdOpen()}}
         >追加</button>
       </div>
 
       <div
-        css={addFlag ? styles.bg : [styles.bg, styles.bgAnime]}
-        onClick={() => setAddFlag(!addFlag)}
+        id='addMdBg'
+        css={styles.bg}
+        onClick={() => addMdOpen()}
       ></div>
 
-      <div
-        css={addFlag ? styles.addMdContainer : [styles.addMdContainer, styles.addMdAnime]}
-      >
-        <form css={styles.baseContainer}>
+      <div css={styles.addMdContainer}>
+        <form
+          id='addMdForm'
+          css={styles.baseContainer}
+        >
           <div css={styles.baseFlex}>
             <p css={styles.baseText}>品目</p>
             <input css={[styles.baseText, styles.inputText]} type="text" value={itemName} onChange={(e) => setItemName(e.target.value)} />
@@ -116,6 +122,7 @@ const styles = {
     background-color: #fff;
     padding: ${vw(80)} ${vw(50)};
     margin: 0 auto;
+    display: none;
 
     @media (min-width: ${PROJECT.BP}px) {
       width: 600px;
@@ -190,8 +197,6 @@ const styles = {
     z-index: 105;
     top: 0;
     left: 0;
-  `,
-  bgAnime: css `
     display: none;
   `,
   addMdContainer: css `
@@ -205,8 +210,5 @@ const styles = {
     @media (min-width: ${PROJECT.BP}px) {
       width: 600px;
     }
-  `,
-  addMdAnime: css `
-    display: none;
   `,
 }
