@@ -41,10 +41,10 @@ export default function Lp() {
       }
     };
 
-    if(session){
+    if(session?.user?.id){
       let createFlag = true;
       users?.map((user: userType) => {
-        if( session?.user?.id === user.id ) createFlag = false;
+        if( session.user?.id === user.id ) createFlag = false;
       })
       if( createFlag === true ) handleCreateUser();
     }

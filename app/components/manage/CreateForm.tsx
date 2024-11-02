@@ -7,7 +7,7 @@ import { vw } from '../../utils/Responsive';
 import { dela_gothic } from "../../utils/Fonts";
 import { useItems } from "../../../hooks/useItems";
 import { API_URL } from "@/constants/url";
-import { addMdFormCloseFunc, addMdFormOpenFunc } from "@/app/utils/manage/nav/gsapAnimation";
+import { addMdFormCloseFunc, addMdFormOpenFunc } from "@/app/utils/manage/gsapAnimation";
 
 
 const CreateForm = () => {
