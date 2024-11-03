@@ -74,6 +74,7 @@ export default function Lp() {
             disableOnInteraction: false,
           }}
           css={styles.fvSwiper}
+          id='fvSwiper'
         >
           <SwiperSlide>
             <Image src="/images/lp/fv_1_pc.jpg" alt="Fv1 Img" fill style={{ objectFit: 'contain'}} css={Responsive.pc} />

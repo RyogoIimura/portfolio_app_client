@@ -37,7 +37,7 @@ export const toLpContent = () => {
         const lpContentY = lpContent[num].getBoundingClientRect().top + window.scrollY;
 
         gsap.set( window, {scrollTo: { y: lpContentY - headerHeight - 150}});
-        gsap.to( window, {duration: .7, ease: 'power4.out',scrollTo: { y: lpContentY - headerHeight}});
+        gsap.to( window, { duration: .7, ease: 'power4.out',scrollTo: { y: lpContentY - headerHeight}});
       }
     });
   }
@@ -45,14 +45,17 @@ export const toLpContent = () => {
 export const fvAnimation = () => {
   const header = document.getElementById('header');
   const fv = document.getElementById('fv');
+  const fvSwiper = document.getElementById('fvSwiper');
   const subTitle = document.getElementById('subTitle');
 
   gsap.set( [fv, subTitle], { opacity: 0 });
   gsap.set( header, { opacity: 0, y: '-30%' });
+  gsap.set( fvSwiper, { opacity: 0, scale: 1.05 });
   gsap.set( '#title span', { opacity: 0, y: '10%', scale: .5, transformOrigin: '50% 100%', display: 'inline-block', willChange: 'transform' });
 
-  gsap.to( header, {duration: .7, ease: 'power4.out', opacity: 1, y: 0, delay: .3 });
-  gsap.to( fv, {duration: .7, ease: 'power4.out', opacity: 1, delay: .3 });
-  gsap.to( subTitle, {duration: .7, ease: 'power4.out', opacity: 1, y: 0, delay: .7 });
-  gsap.to( '#title span', { duration: .4, ease: 'power4.out', opacity: 1, y: 0, scale: 1, stagger: .03, delay: .7 });
+  gsap.to( fv, { duration: .7, ease: 'power4.out', opacity: 1, delay: .3 });
+  gsap.to( header, { duration: .7, ease: 'power4.out', opacity: 1, y: 0, delay: .3 });
+  gsap.to( fvSwiper, { duration: 1.5, ease: "power4.out", opacity: 1, scale: 1, delay: .5 });
+  gsap.to( subTitle, { duration: .7, ease: 'power4.out', opacity: 1, y: 0, delay: 1 });
+  gsap.to( '#title span', { duration: .4, ease: 'power4.out', opacity: 1, y: 0, scale: 1, stagger: .03, delay: 1 });
 }

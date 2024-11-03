@@ -15,19 +15,6 @@ export const useReservations = () => {
     reserv: data,
     isLoading,
     error,
-    reservMutate: mutate,
-  };
-};
-export const useReservationsItem = () => {
-  const { data, isLoading, error, mutate } = useSWR(
-    `${API_URL}/getReservationItem`,
-    fetcher
-  );
-
-  return {
-    reservItem: data,
-    isLoading,
-    error,
-    reservItemMutate: mutate,
+    mutate,
   };
 };

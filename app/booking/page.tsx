@@ -1,14 +1,13 @@
 "use client";
 import { css } from "@emotion/react";
 
-import { useReservations, useReservationsItem } from "@/hooks/useBooking";
+import { useReservations } from "@/hooks/useBooking";
 import { vw } from "../utils/Responsive";
 import { PROJECT } from "@/data/AppData";
 
 export default function BookingForm() {
-  const { reserv, reservMutate } = useReservations();
-  const { reservItem, reservItemMutate } = useReservationsItem();
-  console.log(reserv, reservItem);
+  const { reserv, mutate } = useReservations();
+  console.log(reserv, mutate);
 
   // const [editFlag, setEditFlag] = useState(false);
 
