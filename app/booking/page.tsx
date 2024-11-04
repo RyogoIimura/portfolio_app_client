@@ -40,10 +40,16 @@ export default function BookingForm() {
       }
     })
     setStartTimeArray(array)
-    setReservation((prevState) => ({
-      ...prevState,
-      start_time: array[0]
-    }));
+
+    if(array[0]){
+      setReservation((prevState) => ({
+        ...prevState,
+        start_time: array[0]
+      }));
+      setStartTimeFlag(true)
+    } else {
+      setStartTimeFlag(false)
+    }
   }
 
   useEffect(() => {
@@ -72,11 +78,12 @@ export default function BookingForm() {
       ...prevState,
       items_list: newArray
     }))
-    if( Number(category) == 0 && Number(value) != 0 ) setConfirmFlag(true);
-    if( Number(category) == 0 && Number(value) == 0 ) setConfirmFlag(false);
+    if( Number(category) == 0 && Number(value) != 0 ) setSaunaFlag(true);
+    if( Number(category) == 0 && Number(value) == 0 ) setSaunaFlag(false);
   }
 
-  const [ confirmFlag, setConfirmFlag ] = useState<boolean>(false);
+  const [ saunaFlag, setSaunaFlag ] = useState<boolean>(false);
+  const [ startTimeFlag, setStartTimeFlag ] = useState<boolean>(false);
   const [ sendFlag, setSendFlag ] = useState<boolean>(false);
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,102 +109,134 @@ export default function BookingForm() {
   return (
     <>
       <form
-        css={[styles.baseContainer, styles.itemContainer]}
+        css={[styles.baseContainer, styles.reservContainer]}
       >
         <div css={styles.baseFlex}>
           <p css={styles.baseText}>品目</p>
           <div>
             {items?.map((item: ItemType, index: number) => (
-              <div key={index}>
-                <p>{item.name}</p>
-                {
+              <div key={index} css={styles.countFlex}>
+                <p css={styles.baseText}>{item.name}&emsp;</p>
+                {sendFlag ? (
+                  <p css={styles.baseText}>{reservation.items_list[index]?.count} 個</p>
+                ) : (
                   Number(item.category) === 0 ? (
                     <select name="count" css={styles.baseText}
                       value={reservation.items_list[index]?.count}
                       onChange={(e) => itemListChange(e.target.value, index, item.category)}
                     >
-                      <option value='0'>0</option>
-                      <option value="1">1</option>
+                      <option value='0'>0 個</option>
+                      <option value="1">1 個</option>
                     </select>
                   ) : (
                     <select name="count" css={styles.baseText}
                       value={reservation.items_list[index]?.count}
                       onChange={(e) => itemListChange(e.target.value, index, item.category)}
                     >
-                      <option value='0'>0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
+                      <option value='0'>0 個</option>
+                      <option value="1">1 個</option>
+                      <option value="2">2 個</option>
+                      <option value="3">3 個</option>
+                      <option value="4">4 個</option>
+                      <option value="5">5 個</option>
                     </select>
                   )
-                }
+                )}
               </div>
             ))}
           </div>
         </div>
         <div css={styles.baseFlex}>
           <p css={styles.baseText}>人数</p>
-          <select name="people_cont" css={styles.baseText}
-            value={reservation.people_cont}
-            onChange={(e) => {
-              setReservation((prevState) => ({
-                ...prevState,
-                people_cont: Number(e.target.value)
-              }))
-            }}
-          >
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
+          {sendFlag ? (
+            <p css={styles.baseText}>{reservation.people_cont} 人</p>
+          ) : (
+            <select name="people_cont" css={styles.baseText}
+              value={reservation.people_cont}
+              onChange={(e) => {
+                setReservation((prevState) => ({
+                  ...prevState,
+                  people_cont: Number(e.target.value)
+                }))
+              }}
+            >
+              <option value="2">2 人</option>
+              <option value="3">3 人</option>
+              <option value="4">4 人</option>
+              <option value="5">5 人</option>
+            </select>
+          )}
         </div>
         <div css={styles.baseFlex}>
           <p css={styles.baseText}>日付</p>
-          <input type="date" name="date" min={nextday}
-            value={reservation.date}
-            onChange={(e) => {
-              setReservation((prevState) => ({
-                ...prevState,
-                date: e.target.value
-              }))
-              startTimeSelect(e.target.value)
-            }}
-          />
+          {sendFlag ? (
+            <p css={styles.baseText}>{reservation.date}</p>
+          ) : (
+            <input type="date" name="date" css={styles.baseText}
+              min={nextday}
+              value={reservation.date}
+              onChange={(e) => {
+                setReservation((prevState) => ({
+                  ...prevState,
+                  date: e.target.value
+                }))
+                startTimeSelect(e.target.value)
+              }}
+            />
+          )}
         </div>
         <div css={styles.baseFlex}>
           <p css={styles.baseText}>時間</p>
-          <select name="start_time" css={styles.baseText}
-            value={reservation.start_time}
-            onChange={(e) => {
-              setReservation((prevState) => ({
-                ...prevState,
-                start_time: e.target.value
-              }))
-            }}
-          >
-            {startTimeArray.map((time, index) => (
-              <option key={index} value={time}>{time}</option>
-            ))}
-          </select>
-        </div>
-        <div css={styles.itemButtonContainer}>
           {sendFlag ? (
-            <button
-              type="button"
-              css={styles.button}
-              className={`${dela_gothic.className}`}
-              onClick={handleSend}
-            >送信</button>
+            <p css={styles.baseText}>{reservation.start_time} ~</p>
+          ) : (
+            startTimeFlag ? (
+              <select name="start_time" css={styles.baseText}
+              value={reservation.start_time}
+              onChange={(e) => {
+                setReservation((prevState) => ({
+                  ...prevState,
+                  start_time: e.target.value
+                }))
+              }}
+            >
+              {startTimeArray.map((time, index) => (
+                <option key={index} value={time}>{time} ~</option>
+              ))}
+            </select>
+            ) : (
+              <p css={styles.baseText}>ご予約できる時間がありません</p>
+            )
+          )}
+        </div>
+        {sendFlag ? (
+          <p css={styles.annotation}>上記でご予約いたしますので、間違いないかご確認ください</p>
+        ) : (
+          <p css={styles.annotation}>※ご予約にはテントサウナの選択が必須です</p>
+        )}
+        <div css={styles.reservButtonContainer}>
+          {sendFlag ? (
+            <>
+              <button
+                type="button"
+                css={styles.button}
+                className={`${dela_gothic.className}`}
+                onClick={() => setSendFlag(!sendFlag)}
+              >戻る</button>
+              <button
+                type="button"
+                css={[styles.button, styles.rightButton]}
+                className={`${dela_gothic.className}`}
+                onClick={handleSend}
+              >送信</button>
+            </>
           ) : (
             <button
               type="button"
-              css={confirmFlag ? styles.button : [styles.button, styles.buttonDisabled]}
+              css={saunaFlag && startTimeFlag ? styles.button : [styles.button, styles.buttonDisabled]}
               className={`${dela_gothic.className}`}
               onClick={() => setSendFlag(!sendFlag)}
-              disabled={confirmFlag ? false : true}
+              disabled={saunaFlag && startTimeFlag ? false : true}
             >確認</button>
           )}
         </div>
@@ -250,7 +289,7 @@ const styles = {
       width: 380px;
     }
   `,
-  itemContainer: css `
+  reservContainer: css `
     background-color: ${PROJECT.BGCOLOR};
 
     &:not(:first-of-type) {
@@ -264,7 +303,7 @@ const styles = {
     }
   `,
 
-  itemButtonContainer: css `
+  reservButtonContainer: css `
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -284,7 +323,38 @@ const styles = {
       font-size: 30px;
     }
   `,
+  rightButton: css `
+    margin-left: ${vw(30)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      margin-left: 30px;
+    }
+  `,
   buttonDisabled: css `
     opacity: .5;
   `,
+
+  countFlex: css `
+    display: flex;
+    justify-content: space-between;
+    &:not(:first-of-type) {
+      margin-top: ${vw(24)};
+    }
+
+    @media (min-width: ${PROJECT.BP}px) {
+      &:not(:first-of-type) {
+        margin-top: 24px;
+      }
+    }
+  `,
+  annotation: css `
+    font-size: ${vw(18)};
+    margin-top: ${vw(100)};
+    text-align: center;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 15px;
+      margin-top: 100px;
+    }
+  `
 }
