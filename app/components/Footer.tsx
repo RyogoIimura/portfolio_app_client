@@ -19,11 +19,11 @@ const Footer = () => {
           css={styles.textWrapper}
         >
           <p
-            className={` ${manrope.className}`}
+            className={`${manrope.className}`}
             css={styles.subTitle}
           >RIVERSIDE SAUNA RENTAL</p>
           <h2
-            className={` ${dela_gothic.className}`}
+            className={`${dela_gothic.className}`}
             css={styles.title}
           >THE AZUMA<br/>GORGE SAUNA</h2>
         </div>

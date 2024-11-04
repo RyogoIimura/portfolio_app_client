@@ -160,7 +160,7 @@ export default function User() {
               <button
                 type="button"
                 css={styles.button}
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className}`}
                 onClick={() => handleSubmit()}
               >保存</button>
             </> :
@@ -168,7 +168,7 @@ export default function User() {
               <button
                 type="button"
                 css={styles.button}
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className}`}
                 onClick={() => handleEdit()}
               >編集</button>
             </>

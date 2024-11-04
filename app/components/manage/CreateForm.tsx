@@ -54,7 +54,7 @@ const CreateForm = () => {
       <div css={styles.addButtonContainer}>
         <button
           css={[styles.button, styles.addButton]}
-          className={` ${dela_gothic.className}`}
+          className={`${dela_gothic.className}`}
           onClick={() => {addMdOpen()}}
         >追加</button>
       </div>
@@ -105,7 +105,7 @@ const CreateForm = () => {
             <button
               type="button"
               css={[styles.button, styles.addButton]}
-              className={` ${dela_gothic.className}`}
+              className={`${dela_gothic.className}`}
               onClick={handleSubmit}
             >完了</button>
           </div>

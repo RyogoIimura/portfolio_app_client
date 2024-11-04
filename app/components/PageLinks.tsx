@@ -18,7 +18,7 @@ const PageLinks = (props: PageLinksProps) => {
       {linksName.map((value, index) => (
         <div
           key={index}
-          className={` ${dela_gothic.className} pageLinkButton`}
+          className={`${dela_gothic.className} pageLinkButton`}
           css={styles.pageLink}
           data-num={index}
           onClick={navOpen}

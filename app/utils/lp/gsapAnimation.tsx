@@ -49,13 +49,13 @@ export const fvAnimation = () => {
   const subTitle = document.getElementById('subTitle');
 
   gsap.set( [fv, subTitle], { opacity: 0 });
-  gsap.set( header, { opacity: 0, y: '-30%' });
+  gsap.set( header, { opacity: 0, y: '-40%' });
   gsap.set( fvSwiper, { opacity: 0, scale: 1.05 });
   gsap.set( '#title span', { opacity: 0, y: '10%', scale: .5, transformOrigin: '50% 100%', display: 'inline-block', willChange: 'transform' });
 
   gsap.to( fv, { duration: .7, ease: 'power4.out', opacity: 1, delay: .3 });
-  gsap.to( header, { duration: .7, ease: 'power4.out', opacity: 1, y: 0, delay: .3 });
+  gsap.to( header, { duration: 1, ease: 'power4.out', opacity: 1, y: 0, delay: .5 });
   gsap.to( fvSwiper, { duration: 1.5, ease: "power4.out", opacity: 1, scale: 1, delay: .5 });
   gsap.to( subTitle, { duration: .7, ease: 'power4.out', opacity: 1, y: 0, delay: 1 });
-  gsap.to( '#title span', { duration: .4, ease: 'power4.out', opacity: 1, y: 0, scale: 1, stagger: .03, delay: 1 });
+  gsap.to( '#title span', { duration: .5, ease: 'power4.out', opacity: 1, y: 0, scale: 1, stagger: .03, delay: 1 });
 }

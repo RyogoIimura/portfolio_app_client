@@ -139,7 +139,7 @@ const EditForm = (props: propsType) => {
               <button
                 type="button"
                 css={styles.button}
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className}`}
                 onClick={() => handleSubmit()}
               >保存</button>
             </> :
@@ -147,13 +147,13 @@ const EditForm = (props: propsType) => {
               <button
                 type="button"
                 css={styles.button}
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className}`}
                 onClick={() => editItem()}
               >編集</button>
               <button
                 type="button"
                 css={[styles.button, styles.rightButton]}
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className}`}
                 onClick={() => handleDelete(item.id)}
               >削除</button>
             </>

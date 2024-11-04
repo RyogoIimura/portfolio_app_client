@@ -22,3 +22,11 @@ export type ItemType = {
   created_at: Date;
   updated_at: Date;
 }
+
+export type ReservationType = {
+  user_id: string;
+  items_list: {name: string, count: number}[];
+  people_cont: number;
+  date: string;
+  start_time: string;
+}

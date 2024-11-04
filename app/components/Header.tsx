@@ -51,7 +51,7 @@ const Header = () => {
             )
           }
           <Link
-            className={` ${manrope.className}`}
+            className={`${manrope.className}`}
             css={[styles.headerTitle, Responsive.pc]}
             href='./lp'
           >AZUMA GORGE SAUNA</Link>
@@ -59,7 +59,7 @@ const Header = () => {
             css={styles.hamburgerContainer}
           >
             <Link
-              className={` ${manrope.className}`}
+              className={`${manrope.className}`}
               css={[styles.headerTitle, Responsive.sp]}
               href='./lp'
             >AZUMA GORGE SAUNA</Link>
@@ -83,20 +83,20 @@ const Header = () => {
                     css={styles.userNavCont}
                   >
                     <button
-                      className={` ${dela_gothic.className}`}
+                      className={`${dela_gothic.className}`}
                       css={[styles.buttonText, styles.userNavText]}
                       onClick={() => signOut()}
                     >SIGN OUT</button>
                     {session.user?.id === MANAGE_ID ? (
                       <Link
-                        className={` ${dela_gothic.className}`}
+                        className={`${dela_gothic.className}`}
                         css={[styles.buttonText, styles.userNavText]}
                         href="./manage"
                         onClick={userNavOpen}
                       >MANAGE</Link>
                     ) : (
                       <Link
-                        className={` ${dela_gothic.className}`}
+                        className={`${dela_gothic.className}`}
                         css={[styles.buttonText, styles.userNavText]}
                         href="./user"
                         onClick={userNavOpen}
@@ -107,7 +107,7 @@ const Header = () => {
               </div>
             ) : (
               <button
-                className={` ${dela_gothic.className}`}
+                className={`${dela_gothic.className}`}
                 css={[styles.buttonText, styles.signInButton, Responsive.pc]}
                 onClick={() => signIn()}
               >SIGN IN</button>

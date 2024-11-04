@@ -11,7 +11,7 @@ export default function Complete() {
         css={text}
       >Manrope</p>
       <p
-        className={` ${manrope.className}`}
+        className={`${manrope.className}`}
         style={{ fontWeight: 600 }}
       >Manrope</p>
       <p
