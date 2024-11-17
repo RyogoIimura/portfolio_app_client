@@ -9,10 +9,12 @@ import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
 import { dela_gothic } from "../utils/Fonts";
 import { API_URL } from "@/constants/url";
+import { useReservations } from "@/hooks/useBooking";
 
 export default function User() {
   const { data: session } = useSession();
   const { users, mutate } = useUsers();
+  const { reserv } = useReservations();
 
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
@@ -98,11 +100,43 @@ export default function User() {
     setEditFlag(!editFlag)
   };
 
+  type ReservationType = {
+    user_id: string;
+    items_list: string;
+    people_cont: number;
+    date: string;
+    start_time: string;
+  }
+  const [ userReserv, setUserReserv ] = useState<ReservationType[]>();
+  useEffect(() => {
+    if(session && reserv){
+      const reservArray: ReservationType[] = [];
+      reserv.map((e: ReservationType) => {
+        if(e.user_id === session.user?.id) reservArray.push(e);
+      })
+      console.log(reservArray);
+      setUserReserv(reservArray);
+    }
+  }, [session, reserv])
+  const itemListDisplay = (items_list: string) => {
+    const array = JSON.parse(items_list);
+    return array.map((e: {name: string, count: number}, index: number) => (
+      <p key={index}>
+        <span>{e.name} : </span>
+        <span>{e.count}</span>
+      </p>
+    ))
+  }
+
   return (
     <>
       <form
         css={[styles.baseContainer, styles.itemContainer]}
       >
+        <p
+          className={`${dela_gothic.className}`}
+          css={styles.baseTitle}
+        >個人情報</p>
         <div css={styles.baseFlex}>
           <p css={styles.baseText}>名前</p>
           {
@@ -190,6 +224,31 @@ export default function User() {
           }
         </div>
       </form>
+      
+      <div css={styles.reservContainer}>
+        <p
+          className={`${dela_gothic.className}`}
+          css={styles.baseTitle}
+        >予約履歴</p>
+        {
+          userReserv?.map((e, index) => (
+            <div
+              key={index}
+              css={styles.reservBgWrapper}
+            >
+              <div css={[styles.baseText, styles.reservText]}>
+                <p>日時 : {e.date}</p>
+                <p>時間 : {e.start_time} ~</p>
+                <p>人数 : {e.people_cont} 人</p>
+              </div>
+              <div css={[styles.baseText, styles.reservText]}>
+                <p>品目</p>
+                {itemListDisplay(e.items_list)}
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </>
   )
 }
@@ -210,15 +269,19 @@ const styles = {
     width: 100%;
     display: flex;
     justify-content: space-between;
-
-    &:not(:first-of-type) {
-      margin-top: ${vw(40)};
-    }
+    margin-top: ${vw(40)};
 
     @media (min-width: ${PROJECT.BP}px) {
-      &:not(:first-of-type) {
-        margin-top: 40px;
-      }
+      margin-top: 40px;
+    }
+  `,
+  baseTitle: css `
+    font-size: ${vw(36)};
+    text-align: center;
+    color: ${PROJECT.KEYCOLOR};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 30px;
     }
   `,
   baseText: css `
@@ -278,5 +341,30 @@ const styles = {
     @media (min-width: ${PROJECT.BP}px) {
       margin-left: 30px;
     }
+  `,
+
+  reservContainer: css `
+    margin-top: ${vw(120)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      margin-top: 100px;
+    }
+  `,
+  reservBgWrapper: css `
+    width: ${vw(650)};
+    padding: ${vw(50)};
+    background-color: ${PROJECT.BGCOLOR};
+    margin: ${vw(20)} auto 0;
+    display: flex;
+    justify-content: space-between;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      width: 600px;
+      padding: 40px;
+      margin: 20px auto 0;
+    }
+  `,
+  reservText: css `
+    line-height: 1.6em;
   `,
 }

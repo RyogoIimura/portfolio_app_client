@@ -21,7 +21,7 @@ export default function BookingForm() {
 
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
-    if(session){
+    if(session && users){
       users.map((e: userType) => {
         if(e.id === session.user?.id) setUser(e);
       })
