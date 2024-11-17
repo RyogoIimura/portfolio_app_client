@@ -8,6 +8,7 @@ export type userType = {
   city?: string;
   address1?: string;
   address2?: string;
+  complete: boolean;
   created_at: Date;
   updated_at: Date;
 }

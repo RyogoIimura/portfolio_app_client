@@ -32,6 +32,7 @@ export default function Lp() {
           id: session?.user?.id,
           name: session?.user?.name,
           email: session?.user?.email,
+          complete: false
         }),
       });
   

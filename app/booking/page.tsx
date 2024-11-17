@@ -6,15 +6,27 @@ import { useReservations } from "@/hooks/useBooking";
 import { useItems } from "@/hooks/useItems";
 import { vw } from "../utils/Responsive";
 import { PROJECT } from "@/data/AppData";
-import { ItemType, ReservationType } from "@/types/types";
+import { ItemType, ReservationType, userType } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { dela_gothic } from "../utils/Fonts";
 import { API_URL } from "@/constants/url";
+import { useUsers } from "@/hooks/useUsers";
+import Link from "next/link";
 
 export default function BookingForm() {
   const { data: session } = useSession();
   const { reserv, mutate } = useReservations();
   const { items } = useItems();
+  const { users } = useUsers();
+
+  const [ user, setUser ] = useState<userType | null>(null);
+  useEffect(() => {
+    if(session){
+      users.map((e: userType) => {
+        if(e.id === session.user?.id) setUser(e);
+      })
+    }
+  }, [session, users])
 
   const [ reservation, setReservation ] = useState<ReservationType>({
     user_id: '',
@@ -103,144 +115,151 @@ export default function BookingForm() {
     if (response.ok) {
       const newReserv = await response.json();
       mutate([...reserv, JSON.parse(newReserv)]);
+      document.location = '../complete';
     }
   }
 
   return (
     <>
-      <form
-        css={[styles.baseContainer, styles.reservContainer]}
-      >
-        <div css={styles.baseFlex}>
-          <p css={styles.baseText}>品目</p>
-          <div>
-            {items?.map((item: ItemType, index: number) => (
-              <div key={index} css={styles.countFlex}>
-                <p css={styles.baseText}>{item.name}&emsp;</p>
-                {sendFlag ? (
-                  <p css={styles.baseText}>{reservation.items_list[index]?.count} 個</p>
-                ) : (
-                  Number(item.category) === 0 ? (
-                    <select name="count" css={styles.baseText}
-                      value={reservation.items_list[index]?.count}
-                      onChange={(e) => itemListChange(e.target.value, index, item.category)}
-                    >
-                      <option value='0'>0 個</option>
-                      <option value="1">1 個</option>
-                    </select>
+      {user?.complete ? (
+        <form
+          css={[styles.baseContainer, styles.reservContainer]}
+        >
+          <div css={styles.baseFlex}>
+            <p css={styles.baseText}>品目</p>
+            <div>
+              {items?.map((item: ItemType, index: number) => (
+                <div key={index} css={styles.countFlex}>
+                  <p css={styles.baseText}>{item.name}&emsp;</p>
+                  {sendFlag ? (
+                    <p css={styles.baseText}>{reservation.items_list[index]?.count} 個</p>
                   ) : (
-                    <select name="count" css={styles.baseText}
-                      value={reservation.items_list[index]?.count}
-                      onChange={(e) => itemListChange(e.target.value, index, item.category)}
-                    >
-                      <option value='0'>0 個</option>
-                      <option value="1">1 個</option>
-                      <option value="2">2 個</option>
-                      <option value="3">3 個</option>
-                      <option value="4">4 個</option>
-                      <option value="5">5 個</option>
-                    </select>
-                  )
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div css={styles.baseFlex}>
-          <p css={styles.baseText}>人数</p>
-          {sendFlag ? (
-            <p css={styles.baseText}>{reservation.people_cont} 人</p>
-          ) : (
-            <select name="people_cont" css={styles.baseText}
-              value={reservation.people_cont}
-              onChange={(e) => {
-                setReservation((prevState) => ({
-                  ...prevState,
-                  people_cont: Number(e.target.value)
-                }))
-              }}
-            >
-              <option value="2">2 人</option>
-              <option value="3">3 人</option>
-              <option value="4">4 人</option>
-              <option value="5">5 人</option>
-            </select>
-          )}
-        </div>
-        <div css={styles.baseFlex}>
-          <p css={styles.baseText}>日付</p>
-          {sendFlag ? (
-            <p css={styles.baseText}>{reservation.date}</p>
-          ) : (
-            <input type="date" name="date" css={styles.baseText}
-              min={nextday}
-              value={reservation.date}
-              onChange={(e) => {
-                setReservation((prevState) => ({
-                  ...prevState,
-                  date: e.target.value
-                }))
-                startTimeSelect(e.target.value)
-              }}
-            />
-          )}
-        </div>
-        <div css={styles.baseFlex}>
-          <p css={styles.baseText}>時間</p>
-          {sendFlag ? (
-            <p css={styles.baseText}>{reservation.start_time} ~</p>
-          ) : (
-            startTimeFlag ? (
-              <select name="start_time" css={styles.baseText}
-              value={reservation.start_time}
-              onChange={(e) => {
-                setReservation((prevState) => ({
-                  ...prevState,
-                  start_time: e.target.value
-                }))
-              }}
-            >
-              {startTimeArray.map((time, index) => (
-                <option key={index} value={time}>{time} ~</option>
+                    Number(item.category) === 0 ? (
+                      <select name="count" css={styles.baseText}
+                        value={reservation.items_list[index]?.count}
+                        onChange={(e) => itemListChange(e.target.value, index, item.category)}
+                      >
+                        <option value='0'>0 個</option>
+                        <option value="1">1 個</option>
+                      </select>
+                    ) : (
+                      <select name="count" css={styles.baseText}
+                        value={reservation.items_list[index]?.count}
+                        onChange={(e) => itemListChange(e.target.value, index, item.category)}
+                      >
+                        <option value='0'>0 個</option>
+                        <option value="1">1 個</option>
+                        <option value="2">2 個</option>
+                        <option value="3">3 個</option>
+                        <option value="4">4 個</option>
+                        <option value="5">5 個</option>
+                      </select>
+                    )
+                  )}
+                </div>
               ))}
-            </select>
+            </div>
+          </div>
+          <div css={styles.baseFlex}>
+            <p css={styles.baseText}>人数</p>
+            {sendFlag ? (
+              <p css={styles.baseText}>{reservation.people_cont} 人</p>
             ) : (
-              <p css={styles.baseText}>ご予約できる時間がありません</p>
-            )
-          )}
-        </div>
-        {sendFlag ? (
-          <p css={styles.annotation}>上記でご予約いたしますので、間違いないかご確認ください</p>
-        ) : (
-          <p css={styles.annotation}>※ご予約にはテントサウナの選択が必須です</p>
-        )}
-        <div css={styles.reservButtonContainer}>
+              <select name="people_cont" css={styles.baseText}
+                value={reservation.people_cont}
+                onChange={(e) => {
+                  setReservation((prevState) => ({
+                    ...prevState,
+                    people_cont: Number(e.target.value)
+                  }))
+                }}
+              >
+                <option value="2">2 人</option>
+                <option value="3">3 人</option>
+                <option value="4">4 人</option>
+                <option value="5">5 人</option>
+              </select>
+            )}
+          </div>
+          <div css={styles.baseFlex}>
+            <p css={styles.baseText}>日付</p>
+            {sendFlag ? (
+              <p css={styles.baseText}>{reservation.date}</p>
+            ) : (
+              <input type="date" name="date" css={styles.baseText}
+                min={nextday}
+                value={reservation.date}
+                onChange={(e) => {
+                  setReservation((prevState) => ({
+                    ...prevState,
+                    date: e.target.value
+                  }))
+                  startTimeSelect(e.target.value)
+                }}
+              />
+            )}
+          </div>
+          <div css={styles.baseFlex}>
+            <p css={styles.baseText}>時間</p>
+            {sendFlag ? (
+              <p css={styles.baseText}>{reservation.start_time} ~</p>
+            ) : (
+              startTimeFlag ? (
+                <select name="start_time" css={styles.baseText}
+                value={reservation.start_time}
+                onChange={(e) => {
+                  setReservation((prevState) => ({
+                    ...prevState,
+                    start_time: e.target.value
+                  }))
+                }}
+              >
+                {startTimeArray.map((time, index) => (
+                  <option key={index} value={time}>{time} ~</option>
+                ))}
+              </select>
+              ) : (
+                <p css={styles.baseText}>ご予約できる時間がありません</p>
+              )
+            )}
+          </div>
           {sendFlag ? (
-            <>
+            <p css={styles.annotation}>上記でご予約いたしますので、間違いないかご確認ください</p>
+          ) : (
+            <p css={styles.annotation}>※ご予約にはテントサウナの選択が必須です</p>
+          )}
+          <div css={styles.reservButtonContainer}>
+            {sendFlag ? (
+              <>
+                <button
+                  type="button"
+                  css={styles.button}
+                  className={`${dela_gothic.className}`}
+                  onClick={() => setSendFlag(!sendFlag)}
+                >戻る</button>
+                <button
+                  type="button"
+                  css={[styles.button, styles.rightButton]}
+                  className={`${dela_gothic.className}`}
+                  onClick={handleSend}
+                >送信</button>
+              </>
+            ) : (
               <button
                 type="button"
-                css={styles.button}
+                css={saunaFlag && startTimeFlag ? styles.button : [styles.button, styles.buttonDisabled]}
                 className={`${dela_gothic.className}`}
                 onClick={() => setSendFlag(!sendFlag)}
-              >戻る</button>
-              <button
-                type="button"
-                css={[styles.button, styles.rightButton]}
-                className={`${dela_gothic.className}`}
-                onClick={handleSend}
-              >送信</button>
-            </>
-          ) : (
-            <button
-              type="button"
-              css={saunaFlag && startTimeFlag ? styles.button : [styles.button, styles.buttonDisabled]}
-              className={`${dela_gothic.className}`}
-              onClick={() => setSendFlag(!sendFlag)}
-              disabled={saunaFlag && startTimeFlag ? false : true}
-            >確認</button>
-          )}
-        </div>
-      </form>
+                disabled={saunaFlag && startTimeFlag ? false : true}
+              >確認</button>
+            )}
+          </div>
+        </form>
+      ) : (
+        <p css={styles.requireText}>
+          ご予約いただくには<Link href='./user' css={styles.userLinkText}>ユーザーページ</Link>の個人情報欄を<br/>記入いただく必要がございます。
+        </p>
+      )}
     </>
   );
 }
@@ -356,5 +375,36 @@ const styles = {
       font-size: 15px;
       margin-top: 100px;
     }
-  `
+  `,
+
+  requireText: css `
+    font-size: ${vw(24)};
+    line-height: 2.5em;
+    text-align: center;
+    letter-spacing: .1em;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 18px;
+    }
+  `,
+  userLinkText: css `
+    color: ${PROJECT.SUBCOLOR};
+    position: relative;
+
+		&::before {
+			content: '';
+      width: 100%;
+      height: 1px;
+      background-color: ${PROJECT.SUBCOLOR};
+      position: absolute;
+      bottom: 0;
+      left: 0;
+		}
+
+    @media (min-width: ${PROJECT.BP}px) {
+      &::before {
+        height: 1.5px;
+      }
+    }
+  `,
 }
