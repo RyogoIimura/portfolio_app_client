@@ -17,6 +17,8 @@ export default function User() {
   const { users, mutate } = useUsers();
   const { reserv } = useReservations();
 
+  if(session === undefined) document.location = './lp';
+
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
     if(session && users){
@@ -115,7 +117,7 @@ export default function User() {
       reserv.map((e: ReservationType) => {
         if(e.user_id === session.user?.id) reservArray.push(e);
       })
-      console.log(reservArray);
+      // console.log(reservArray);
       setUserReserv(reservArray);
     }
   }, [session, reserv])

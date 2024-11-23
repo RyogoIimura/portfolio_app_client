@@ -4,9 +4,14 @@ import Link from "next/link";
 
 import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
+import { useSession } from "next-auth/react";
 import Header from "../components/Header";
 
 export default function Complete() {
+  const { data: session } = useSession();
+
+  if(session === undefined) document.location = './lp';
+
   return (
     <>
       <Header page={'complete'} />

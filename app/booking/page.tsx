@@ -20,6 +20,8 @@ export default function BookingForm() {
   const { items } = useItems();
   const { users } = useUsers();
 
+  if(session === undefined) document.location = './lp';
+
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
     if(session && users){
