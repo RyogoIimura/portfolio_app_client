@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useReservations } from "@/hooks/useBooking";
 import { useItems } from "@/hooks/useItems";
 import { vw } from "../utils/Responsive";
-import { HEAD, PROJECT } from "@/data/AppData";
+import { PROJECT } from "@/data/AppData";
 import { ItemType, ReservationType, userType } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { dela_gothic } from "../utils/Fonts";
@@ -20,7 +20,7 @@ export default function BookingForm() {
   const { items } = useItems();
   const { users } = useUsers();
 
-  if(session === undefined) document.location = `${HEAD.URL}lp`;
+  if(session === undefined) document.location = '../lp';
 
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {

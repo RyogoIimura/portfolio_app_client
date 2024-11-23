@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useUsers } from "@/hooks/useUsers";
 import { userType } from "@/types/types";
-import { HEAD, PROJECT } from "@/data/AppData";
+import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
 import { dela_gothic } from "../utils/Fonts";
 import { API_URL } from "@/constants/url";
@@ -17,7 +17,7 @@ export default function User() {
   const { users, mutate } = useUsers();
   const { reserv } = useReservations();
 
-  if(session === undefined) document.location = `${HEAD.URL}lp`;
+  if(session === undefined) document.location = '../lp';
 
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
