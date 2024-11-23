@@ -1,6 +1,7 @@
 "use client";
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import { useReservations } from "@/hooks/useBooking";
 import { useItems } from "@/hooks/useItems";
@@ -11,7 +12,7 @@ import { useSession } from "next-auth/react";
 import { dela_gothic } from "../utils/Fonts";
 import { API_URL } from "@/constants/url";
 import { useUsers } from "@/hooks/useUsers";
-import Link from "next/link";
+import Header from "../components/Header";
 
 export default function BookingForm() {
   const { data: session } = useSession();
@@ -121,6 +122,7 @@ export default function BookingForm() {
 
   return (
     <>
+      <Header page={'booking'} />
       {user?.complete ? (
         <form
           css={[styles.baseContainer, styles.reservContainer]}
@@ -388,23 +390,18 @@ const styles = {
     }
   `,
   userLinkText: css `
+    font-weight: 700;
     color: ${PROJECT.SUBCOLOR};
     position: relative;
 
 		&::before {
 			content: '';
       width: 100%;
-      height: 1px;
+      height: 1.5px;
       background-color: ${PROJECT.SUBCOLOR};
       position: absolute;
       bottom: 0;
       left: 0;
 		}
-
-    @media (min-width: ${PROJECT.BP}px) {
-      &::before {
-        height: 1.5px;
-      }
-    }
   `,
 }

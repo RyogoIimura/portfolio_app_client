@@ -3,6 +3,7 @@ import { ItemType } from "@/types/types";
 import EditForm from '../components/manage/EditForm'
 import CreateForm from '../components/manage/CreateForm'
 import { useItems } from "../../hooks/useItems";
+import Header from "../components/Header";
 
 
 export default function Manage() {
@@ -10,16 +11,19 @@ export default function Manage() {
   const { items } = useItems();
 
   return (
-    <div>
+    <>
+      <Header page={'manage'} />
+      <div>
 
-      {items?.map((item: ItemType) => (
-        <EditForm
-          key={item.id}
-          item={item}
-        />
-      ))}
+        {items?.map((item: ItemType) => (
+          <EditForm
+            key={item.id}
+            item={item}
+          />
+        ))}
 
-      <CreateForm />
-    </div>
+        <CreateForm />
+      </div>
+    </>
   );
 }

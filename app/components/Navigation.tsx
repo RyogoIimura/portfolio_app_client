@@ -13,10 +13,11 @@ import { MANAGE_ID } from "@/constants/url";
 
 type NavigationProps = {
   navOpen: () => void;
+  page: string
 };
 
 const Navigation = (props: NavigationProps) => {
-  const { navOpen } = props;
+  const { navOpen, page } = props;
   const { data: session } = useSession();
 
   return (
@@ -60,10 +61,13 @@ const Navigation = (props: NavigationProps) => {
             >▶︎　ログイン後ご予約できます</div>
           )
         }
-        <div>
-          <PageLinks navOpen={navOpen} />
-        </div>
-
+        {page === 'lp' ? (
+          <div>
+            <PageLinks navOpen={navOpen} />
+          </div>
+        ) : (
+          <></>
+        )}
         {session ? (
           <div css={[styles.userNavContainer, Responsive.sp]}>
             <button css={styles.userNavButton}>
@@ -207,12 +211,12 @@ const styles = {
   `,
   signInButton: css `
     display: inline-block;
-    margin-top: ${vw(190)};
+    margin-top: ${vw(120)};
     text-decoration: none;
     border-bottom: 2px solid #fff;
   `,
   userNavContainer: css `
-    margin-top: ${vw(200)};
+    margin-top: ${vw(120)};
   `,
   userNavButton: css `
     width: ${vw(100)};

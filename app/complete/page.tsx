@@ -4,10 +4,12 @@ import Link from "next/link";
 
 import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
+import Header from "../components/Header";
 
 export default function Complete() {
   return (
     <>
+      <Header page={'complete'} />
       <p css={styles.completeText}>
         ご予約ありがとうございます！
         <br/>ご予約は<Link href='./user' css={styles.userLinkText}>ユーザーページ</Link>よりご確認いただけます。
@@ -28,23 +30,18 @@ const styles = {
     }
   `,
   userLinkText: css `
+    font-weight: 700;
     color: ${PROJECT.SUBCOLOR};
     position: relative;
 
 		&::before {
 			content: '';
       width: 100%;
-      height: 1px;
+      height: 1.5px;
       background-color: ${PROJECT.SUBCOLOR};
       position: absolute;
       bottom: 0;
       left: 0;
 		}
-
-    @media (min-width: ${PROJECT.BP}px) {
-      &::before {
-        height: 1.5px;
-      }
-    }
   `,
 }

@@ -6,7 +6,6 @@ import { css } from "@emotion/react";
 // import type { Metadata } from "next";
 import { Noto_Sans_JP } from 'next/font/google'
 import { HEAD, PROJECT } from '../data/AppData'
-import Header from "./components/Header";
 import Footer from './components/Footer'
 import { vw } from "./utils/Responsive";
 
@@ -36,7 +35,6 @@ export default function RootLayout({
         css={styles.manageWrapper}
       >
         <NextAuthProvider>
-          <Header />
           {children}
           <Footer />
         </NextAuthProvider>

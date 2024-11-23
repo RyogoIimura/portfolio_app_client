@@ -13,7 +13,12 @@ import { MANAGE_ID } from '../../constants/url';
 import { navCloseFunc, navOpenFunc, userNavCloseFunc, userNavOpenFunc } from "../utils/nav/gsapAnimation";
 
 
-const Header = () => {
+type HeaderProps = {
+  page: string;
+};
+
+const Header = (props: HeaderProps) => {
+  const { page } = props;
   const { data: session } = useSession();
   const [navFlag, setNavFlag] = useState<boolean>(false);
   const navOpen = () => {
@@ -131,7 +136,10 @@ const Header = () => {
         </div>
       </div>
 
-      <Navigation navOpen={navOpen} />
+      <Navigation
+        page={page}
+        navOpen={navOpen}
+      />
     </>
   );
 };

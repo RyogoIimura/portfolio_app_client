@@ -10,6 +10,7 @@ import { vw } from "../utils/Responsive";
 import { dela_gothic } from "../utils/Fonts";
 import { API_URL } from "@/constants/url";
 import { useReservations } from "@/hooks/useBooking";
+import Header from "../components/Header";
 
 export default function User() {
   const { data: session } = useSession();
@@ -130,6 +131,7 @@ export default function User() {
 
   return (
     <>
+      <Header page={'user'} />
       <form
         css={[styles.baseContainer, styles.itemContainer]}
       >

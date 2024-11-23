@@ -17,6 +17,7 @@ import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
 import { manrope, dela_gothic } from "../utils/Fonts";
 import { fvAnimation, parallaxImg, toLpContent } from "../utils/lp/gsapAnimation";
+import Header from "../components/Header";
 
 export default function Lp() {
   const { data: session } = useSession();
@@ -61,6 +62,7 @@ export default function Lp() {
 
   return (
     <>
+      <Header page={'lp'} />
       <div
         id='fv'
         css={styles.fv}
