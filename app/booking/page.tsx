@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { dela_gothic } from "../utils/Fonts";
 import { API_URL } from "@/constants/url";
 import { useUsers } from "@/hooks/useUsers";
+import { useRouter } from 'next/navigation';
 import Header from "../components/Header";
 
 export default function BookingForm() {
@@ -19,8 +20,9 @@ export default function BookingForm() {
   const { reserv, mutate } = useReservations();
   const { items } = useItems();
   const { users } = useUsers();
+  const router = useRouter();
 
-  if(session === undefined) document.location = '../lp';
+  if(session === undefined) router.push("../lp");
 
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
@@ -118,7 +120,7 @@ export default function BookingForm() {
     if (response.ok) {
       const newReserv = await response.json();
       mutate([...reserv, JSON.parse(newReserv)]);
-      document.location = '../complete';
+      router.push("../complete")
     }
   }
 

@@ -19,7 +19,8 @@
     "react": "^18",
     "react-dom": "^18",
     "swiper": "^11.1.14",
-    "swr": "^2.2.5"
+    "swr": "^2.2.5",
+    "use-router": "^0.4.2"
   },
   "devDependencies": {
     "@types/node": "^20",

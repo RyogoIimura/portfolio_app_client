@@ -5,12 +5,14 @@ import Link from "next/link";
 import { PROJECT } from "@/data/AppData";
 import { vw } from "../utils/Responsive";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 import Header from "../components/Header";
 
 export default function Complete() {
   const { data: session } = useSession();
+  const router = useRouter();
 
-  if(session === undefined) document.location = '../lp';
+  if(session === undefined) router.push("../lp");
 
   return (
     <>

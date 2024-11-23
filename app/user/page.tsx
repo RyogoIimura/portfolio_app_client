@@ -10,14 +10,16 @@ import { vw } from "../utils/Responsive";
 import { dela_gothic } from "../utils/Fonts";
 import { API_URL } from "@/constants/url";
 import { useReservations } from "@/hooks/useBooking";
+import { useRouter } from 'next/navigation';
 import Header from "../components/Header";
 
 export default function User() {
   const { data: session } = useSession();
   const { users, mutate } = useUsers();
   const { reserv } = useReservations();
+  const router = useRouter();
 
-  if(session === undefined) document.location = '../lp';
+  if(session === undefined) router.push("../lp");
 
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
