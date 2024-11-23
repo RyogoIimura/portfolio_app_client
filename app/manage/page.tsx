@@ -12,7 +12,7 @@ export default function Manage() {
   const { data: session } = useSession();
   const { items } = useItems();
 
-  if( session === undefined || session?.user?.id != MANAGE_ID ) document.location = './lp';
+  if( session === undefined || session?.user?.id != MANAGE_ID ) document.location = '../lp';
 
   return (
     <>

@@ -10,7 +10,7 @@ import Header from "../components/Header";
 export default function Complete() {
   const { data: session } = useSession();
 
-  if(session === undefined) document.location = './lp';
+  if(session === undefined) document.location = '../lp';
 
   return (
     <>

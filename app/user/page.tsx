@@ -17,7 +17,7 @@ export default function User() {
   const { users, mutate } = useUsers();
   const { reserv } = useReservations();
 
-  if(session === undefined) document.location = './lp';
+  if(session === undefined) document.location = '../lp';
 
   const [ user, setUser ] = useState<userType | null>(null);
   useEffect(() => {
