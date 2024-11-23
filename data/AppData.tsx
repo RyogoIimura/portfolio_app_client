@@ -2,7 +2,7 @@
 export const HEAD = {
   NAME: 'AZUMA GORGE SAUNA',
   DESCRIPTION: 'AZUMA GORGE SAUNA はテントサウナレンタルサービスを行っています',
-  LOCALE: 'ja',
+  URL: 'https://main.d2tjhkbxg73sem.amplifyapp.com/'
 }
 
 // 共通で使用する値
