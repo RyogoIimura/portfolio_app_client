@@ -18,6 +18,7 @@ import { vw } from "../utils/Responsive";
 import { manrope, dela_gothic } from "../utils/Fonts";
 import { fvAnimation, parallaxImg, toLpContent } from "../utils/lp/gsapAnimation";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function Lp() {
   const { data: session } = useSession();
@@ -216,6 +217,7 @@ export default function Lp() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

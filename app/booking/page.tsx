@@ -125,7 +125,7 @@ export default function BookingForm() {
   }
 
   return (
-    <>
+    <div css={styles.bookingWrapper}>
       <Header page={'booking'} />
       {user?.complete ? (
         <form
@@ -266,11 +266,19 @@ export default function BookingForm() {
           ご予約いただくには<Link href='./user' css={styles.userLinkText}>ユーザーページ</Link>の個人情報欄を<br/>記入いただく必要がございます。
         </p>
       )}
-    </>
+    </div>
   );
 }
 
 const styles = {
+  bookingWrapper: css `
+    padding-bottom: ${vw(180)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      padding-bottom: 130px;
+    }
+  `,
+
   baseContainer: css `
     width: ${vw(650)};
     background-color: #fff;

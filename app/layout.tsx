@@ -5,7 +5,6 @@ import { css } from "@emotion/react";
 
 import { Noto_Sans_JP } from 'next/font/google'
 import { HEAD, PROJECT } from '../data/AppData'
-import Footer from './components/Footer'
 import { vw } from "./utils/Responsive";
 
 const noto_sans_jp = Noto_Sans_JP({
@@ -32,11 +31,10 @@ export default function RootLayout({
       </head>
       <body
         className={noto_sans_jp.className}
-        css={styles.manageWrapper}
+        css={styles.body}
       >
         <NextAuthProvider>
           {children}
-          <Footer />
         </NextAuthProvider>
       </body>
     </html>
@@ -44,11 +42,11 @@ export default function RootLayout({
 }
 
 const styles = {
-  manageWrapper: css `
-    margin: ${vw(140)} auto 0;
+  body: css `
+    margin-top: ${vw(140)};
 
     @media (min-width: ${PROJECT.BP}px) {
-      margin: 120px auto 0;
+      margin-top: 120px;
     }
   `,
 }

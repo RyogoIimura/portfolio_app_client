@@ -15,17 +15,25 @@ export default function Complete() {
   if(session === undefined) router.push("../lp");
 
   return (
-    <>
+    <div css={styles.completeWrapper}>
       <Header page={'complete'} />
       <p css={styles.completeText}>
         ご予約ありがとうございます！
         <br/>ご予約は<Link href='./user' css={styles.userLinkText}>ユーザーページ</Link>よりご確認いただけます。
       </p>
-    </>
+    </div>
   );
 }
 
 const styles = {
+  completeWrapper: css `
+    padding-bottom: ${vw(180)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      padding-bottom: 130px;
+    }
+  `,
+
   completeText: css `
     font-size: ${vw(24)};
     line-height: 2.5em;

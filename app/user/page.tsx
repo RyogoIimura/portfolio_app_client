@@ -134,7 +134,7 @@ export default function User() {
   }
 
   return (
-    <>
+    <div css={styles.userWrapper}>
       <Header page={'user'} />
       <form
         css={[styles.baseContainer, styles.itemContainer]}
@@ -230,7 +230,6 @@ export default function User() {
           }
         </div>
       </form>
-      
       <div css={styles.reservContainer}>
         <p
           className={`${dela_gothic.className}`}
@@ -255,11 +254,18 @@ export default function User() {
           ))
         }
       </div>
-    </>
+    </div>
   )
 }
 
 const styles = {
+  userWrapper: css `
+    padding-bottom: ${vw(180)};
+
+    @media (min-width: ${PROJECT.BP}px) {
+      padding-bottom: 130px;
+    }
+  `,
   baseContainer: css `
     width: ${vw(650)};
     background-color: #fff;
