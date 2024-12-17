@@ -1,6 +1,7 @@
 "use client";
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 import { useSession } from "next-auth/react";
 import { useUsers } from "@/hooks/useUsers";
@@ -42,7 +43,8 @@ export default function User() {
     address2: undefined
   });
   const handleEdit = () => {
-    setEditFlag(!editFlag)
+    setEditFlag(!editFlag);
+    setErrMessage(null);
     if(user){
       setEditUser(
         {
@@ -68,8 +70,7 @@ export default function User() {
       editUser.post &&
       editUser.prefecture &&
       editUser.city &&
-      editUser.address1 &&
-      editUser.address2
+      editUser.address1
     ){
       completeFlag = true
     }
@@ -133,6 +134,32 @@ export default function User() {
     ))
   }
 
+  // 住所検索機能
+  const [errMessage, setErrMessage] = useState(null);
+  const getAddress = async (): Promise<void> => {
+    const res = await axios.get("https://zipcloud.ibsnet.co.jp/api/search", {
+      params: { zipcode: Number(editUser.post) },
+    });
+    console.log(res);    // 中身確認用
+    if (res.data.status === 200) {
+      setEditUser((prevState) => ({
+        ...prevState,
+        prefecture: res.data.results[0].address1,
+        city: res.data.results[0].address2,
+        address1: res.data.results[0].address3,
+      }));
+      setErrMessage(null);
+    } else {
+      setEditUser((prevState) => ({
+        ...prevState,
+        prefecture: '',
+        city: '',
+        address1: '',
+      }));
+      setErrMessage(res.data.message);
+    }
+  }
+
   return (
     <div css={styles.userWrapper}>
       <Header page={'user'} />
@@ -174,7 +201,22 @@ export default function User() {
             <input css={[styles.baseText, styles.inputText]} type="text" value={editUser.post ? editUser.post : ''} onChange={(e) => setEditUser((prevState) => ({ ...prevState, post: e.target.value}))} /> :
             <p css={styles.baseText}>{user?.post ? user?.post : ''}</p>
           }
+          { errMessage ? <p css={styles.errText}>{`×${errMessage}`}</p> : null }
         </div>
+        {
+          editFlag && user ?
+          <>
+            <div css={styles.itemButtonContainer}>
+              <button
+                type="button"
+                css={styles.button}
+                className={`${dela_gothic.className}`}
+                onClick={getAddress}
+              >住所自動入力</button>
+            </div>
+          </> :
+          ''
+        }
         <div css={styles.baseFlex}>
           <p css={styles.baseText}>都道府県</p>
           {
@@ -282,6 +324,7 @@ const styles = {
     display: flex;
     justify-content: space-between;
     margin-top: ${vw(40)};
+    position: relative;
 
     @media (min-width: ${PROJECT.BP}px) {
       margin-top: 40px;
@@ -324,6 +367,19 @@ const styles = {
       &:not(:first-of-type) {
         margin-top: 40px;
       }
+    }
+  `,
+  errText: css `
+    width: ${vw(380)};
+    font-size: ${vw(18)};
+    color: #ff0000;
+    position: absolute;
+    bottom: -90%;
+    right: 0;
+
+    @media (min-width: ${PROJECT.BP}px) {
+      font-size: 15px;
+      width: 380px;
     }
   `,
 
